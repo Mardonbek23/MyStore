@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.viewpager.widget.PagerAdapter
 import uz.mdev.mystore.R
 import uz.mdev.mystore.adapters.AdapterPager
 import uz.mdev.mystore.databinding.FragmentHeadBinding

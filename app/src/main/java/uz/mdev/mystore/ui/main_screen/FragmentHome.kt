@@ -1,12 +1,15 @@
 package uz.mdev.mystore.ui.main_screen
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import uz.mdev.mystore.R
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import uz.mdev.mystore.adapters.TableAdapter
 import uz.mdev.mystore.databinding.FragmentHomeBinding
+import uz.mdev.mystore.db.entities.Product
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,13 +35,66 @@ class FragmentHome : Fragment() {
     }
 
     lateinit var binding: FragmentHomeBinding
+
+    //adapters
+    lateinit var tableAdapter: TableAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
+
+        setAdapters()
         return binding.root
+    }
+
+    private fun setAdapters() {
+        var list = ArrayList<Product>()
+        list.add(Product(1, "Daftar", 1200000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(2, "Daftar Kaptar", 1200000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(11, "Daftar Varoq", 12000000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(111, "Daftar SAdass", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(31, "Daftard DA d", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(41, "Daftard DADAA", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(1, "Daftar", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(2, "Daftar Kaptar", 120000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(11, "Daftar Varoq", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(111, "Daftar SAdass", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(31, "Daftard DA d", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(41, "Daftard DADAA", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(1, "Daftar", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(2, "Daftar Kaptar", 120000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(11, "Daftar Varoq", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(111, "Daftar SAdass", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(31, "Daftard DA d", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(41, "Daftard DADAA", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(1, "Daftar", 1200000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(2, "Daftar Kaptar", 1200000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(11, "Daftar Varoq", 12000000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(111, "Daftar SAdass", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(31, "Daftard DA d", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(41, "Daftard DADAA", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(1, "Daftar", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(2, "Daftar Kaptar", 120000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(11, "Daftar Varoq", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(111, "Daftar SAdass", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(31, "Daftard DA d", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(41, "Daftard DADAA", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(1, "Daftar", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(2, "Daftar Kaptar", 120000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(11, "Daftar Varoq", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(111, "Daftar SAdass", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(31, "Daftard DA d", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        list.add(Product(41, "Daftard DADAA", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
+        tableAdapter = TableAdapter(list, object : TableAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int, product: Product) {
+
+            }
+        })
+        val dividerItemDecoration = DividerItemDecoration(requireContext(),
+            DividerItemDecoration.VERTICAL)
+        binding.rvProduct.addItemDecoration(dividerItemDecoration)
+        binding.rvProduct.adapter = tableAdapter
     }
 
     companion object {
