@@ -29,6 +29,113 @@
                 app:defaultQueryHint="Search"
                 app:iconifiedByDefault="false"
                 app:queryHint="Search product" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Products"
+                    android:textColor="@color/teal_700"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:padding="5dp"
+                                android:text="№"
+                                android:textColor="@color/teal_700"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:padding="5dp"
+                                android:text="Name"
+                                android:textColor="@color/teal_700"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:padding="5dp"
+                                android:text="Total pr."
+                                android:textColor="@color/teal_700"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="70dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:padding="5dp"
+                                android:text="Quantity"
+                                android:textColor="@color/teal_700"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:padding="5dp"
+                                android:text="Manufacturer"
+                                android:textColor="@color/teal_700"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:padding="5dp"
+                                android:text="G. q"
+                                android:textColor="@color/teal_700"
+                                android:textStyle="bold" />
+                        </TableRow>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:background="@color/teal_700" />
+                    </TableLayout>
+
+                </LinearLayout>
+            </HorizontalScrollView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

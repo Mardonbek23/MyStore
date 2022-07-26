@@ -1,5 +1,6 @@
 package uz.mdev.mystore.ui
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,17 +10,14 @@ import androidx.viewpager.widget.PagerAdapter
 import uz.mdev.mystore.R
 import uz.mdev.mystore.adapters.AdapterPager
 import uz.mdev.mystore.databinding.FragmentHeadBinding
+import uz.mdev.mystore.helpers.hide
+import uz.mdev.mystore.helpers.show
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentHead.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentHead : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -54,9 +52,12 @@ class FragmentHead : Fragment() {
             bottomNavigationView.background = null
             bottomNavigationView.menu.getItem(2).isEnabled = false
             bottomNavigationView.setOnItemSelectedListener {
-                toolbar.visibility=View.VISIBLE
+                toolbar.show()
+                landscapeMode.hide()
+                requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 when (it.itemId) {
                     R.id.item_home -> {
+                        landscapeMode.show()
                         viewPager.setCurrentItem(0, false)
                         toolbar.setTitle("Home")
                     }
@@ -70,10 +71,21 @@ class FragmentHead : Fragment() {
                     }
                     R.id.item_profile -> {
                         viewPager.setCurrentItem(4, false)
-                        toolbar.visibility=View.GONE
+                        toolbar.visibility = View.GONE
                     }
                 }
                 return@setOnItemSelectedListener true
+            }
+
+            //set screen mode
+            landscapeMode.setOnClickListener {
+                if (requireActivity().requestedOrientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+                    requireActivity().requestedOrientation =
+                        ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                } else {
+                    requireActivity().requestedOrientation =
+                        ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                }
             }
         }
     }
