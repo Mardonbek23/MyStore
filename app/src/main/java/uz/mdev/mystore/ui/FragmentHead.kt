@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.PagerAdapter
 import uz.mdev.mystore.R
+import uz.mdev.mystore.adapters.AdapterPager
+import uz.mdev.mystore.databinding.FragmentHeadBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,12 +33,59 @@ class FragmentHead : Fragment() {
         }
     }
 
+    lateinit var binding: FragmentHeadBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_head, container, false)
+        binding = FragmentHeadBinding.inflate(inflater, container, false)
+        setComponents()
+        setFab()
+        return binding.root
+    }
+
+    private fun setComponents() {
+        binding.apply {
+            //set view pager adapter
+            viewPager.adapter = AdapterPager(childFragmentManager, lifecycle, 5)
+            viewPager.isUserInputEnabled = false
+
+            //set bottom navigation
+            bottomNavigationView.background = null
+            bottomNavigationView.menu.getItem(2).isEnabled = false
+            bottomNavigationView.setOnItemSelectedListener {
+                toolbar.visibility=View.VISIBLE
+                when (it.itemId) {
+                    R.id.item_home -> {
+                        viewPager.setCurrentItem(0, false)
+                        toolbar.setTitle("Home")
+                    }
+                    R.id.item_business -> {
+                        viewPager.setCurrentItem(1, false)
+                        toolbar.setTitle("Business")
+                    }
+                    R.id.item_statistics -> {
+                        viewPager.setCurrentItem(3, false)
+                        toolbar.setTitle("Statistics")
+                    }
+                    R.id.item_profile -> {
+                        viewPager.setCurrentItem(4, false)
+                        toolbar.visibility=View.GONE
+                    }
+                }
+                return@setOnItemSelectedListener true
+            }
+        }
+    }
+
+    private fun setFab() {
+        binding.apply {
+            fab.setOnClickListener {
+                bottomNavigationView.menu.getItem(2).isChecked = true
+                viewPager.setCurrentItem(2, false)
+                toolbar.setTitle("Calculator")
+            }
+        }
     }
 
     companion object {

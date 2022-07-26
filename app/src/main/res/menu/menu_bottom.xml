@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_home"
+        android:icon="@drawable/ic_home"
+        android:iconTint="@color/white"
+        android:title="Home" />
+    <item
+        android:id="@+id/item_business"
+        android:icon="@drawable/ic_business"
+        android:iconTint="@color/white"
+        android:title="Business" />
+    <item
+        android:id="@+id/item_calculate"
+        android:iconTint="@color/white"
+        android:title="" />
+    <item
+        android:id="@+id/item_statistics"
+        android:icon="@drawable/ic_statistics"
+        android:iconTint="@color/white"
+        android:title="Statistics" />
+    <item
+        android:id="@+id/item_profile"
+        android:icon="@drawable/ic_profile"
+        android:iconTint="@color/white"
+        android:title="Profile" />
+</menu>
