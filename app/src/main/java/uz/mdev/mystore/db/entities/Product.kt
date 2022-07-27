@@ -8,6 +8,9 @@ class Product {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
     var name: String? = null
+    var category: Int = 0
+    var images: String? = null
+    var description: String? = null
     var total_price: Float = 0f
     var min_price: Float = 0f
     var quantity: Int = 0
@@ -16,13 +19,10 @@ class Product {
     var gift_quantity: Int = 0
     var gift_percent: Int = 0
     var gift_price: Float = 0f
-    var category: Int = 0
     var price_bought: Float = 0f
     var tax_price: Float = 0f
     var size: String? = null
     var status: Int = 0
-    var images: Set<String>? = null
-    var description: String? = null
     var old_bought_price: Float = 0f
     var old_tax_price: Float = 0f
     var old_min_price: Float = 0f
@@ -47,7 +47,7 @@ class Product {
         size: String?,
         quantity: Int,
         status: Int,
-        images: Set<String>?,
+        images: String?,
         gift_quantity: Int,
         gift_percent: Int,
         gift_price: Float,
@@ -91,28 +91,12 @@ class Product {
         this.old_manufacturer = old_manufacturer
     }
 
-    constructor(
-        id: Int,
-        name: String?,
-        total_price: Float,
-        min_price: Float,
-        quantity: Int,
-        interest_percent: Int,
-        manufacturer: String?,
-        gift_quantity: Int,
-        gift_percent: Int,
-        gift_price: Float,
-    ) {
+    constructor(id: Int, name: String?, category: Int, images: String?, description: String?) {
         this.id = id
         this.name = name
-        this.total_price = total_price
-        this.min_price = min_price
-        this.quantity = quantity
-        this.interest_percent = interest_percent
-        this.manufacturer = manufacturer
-        this.gift_quantity = gift_quantity
-        this.gift_percent = gift_percent
-        this.gift_price = gift_price
+        this.category = category
+        this.images = images
+        this.description = description
     }
 
 

@@ -3,21 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AndroidProjects/MyStore/app/src/main/res/drawable/ic_calculate.xml" value="0.1475" />
-        <entry key="..\:/AndroidProjects/MyStore/app/src/main/res/drawable/style_corner_1_grey.xml" value="0.1475" />
         <entry key="..\:/AndroidProjects/MyStore/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/AndroidProjects/MyStore/app/src/main/res/layout/fragment_business.xml" value="0.21784420289855072" />
-        <entry key="..\:/AndroidProjects/MyStore/app/src/main/res/layout/fragment_calculate.xml" value="0.21784420289855072" />
-        <entry key="..\:/AndroidProjects/MyStore/app/src/main/res/layout/fragment_head.xml" value="0.21784420289855072" />
-        <entry key="..\:/AndroidProjects/MyStore/app/src/main/res/layout/fragment_home.xml" value="0.21784420289855072" />
-        <entry key="..\:/AndroidProjects/MyStore/app/src/main/res/layout/fragment_profile.xml" value="0.10916919959473151" />
-        <entry key="..\:/AndroidProjects/MyStore/app/src/main/res/layout/fragment_statistics.xml" value="0.21784420289855072" />
-        <entry key="..\:/AndroidProjects/MyStore/app/src/main/res/layout/item_rv_table.xml" value="0.21784420289855072" />
-        <entry key="..\:/AndroidProjects/MyStore/app/src/main/res/menu/menu_bottom.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/style_bottom_dialog_corner.xml" value="0.1655" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/dialog_bottom_add_product.xml" value="0.365625" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_home.xml" value="0.3496932515337423" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/item_rv_table.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

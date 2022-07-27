@@ -9,7 +9,7 @@ import uz.mdev.mystore.db.entities.Product
 
 @Database(entities = [Product::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun studentDao(): ProductDao
+    abstract fun productDao(): ProductDao
 
     companion object {
         private var appDatabase: AppDatabase? = null

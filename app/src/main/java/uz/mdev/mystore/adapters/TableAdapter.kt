@@ -29,6 +29,9 @@ class TableAdapter(
                 giftQuantity.setText(setIntToStr(product.gift_quantity))
                 giftPercent.setText(setPercentForm(product.gift_percent))
                 giftPrice.setText(setFloatToCurrencyFormat(product.gift_price))
+                edit.setOnClickListener {
+                    listener.onEditClick(position, product)
+                }
             }
         }
     }
@@ -47,6 +50,7 @@ class TableAdapter(
 
     interface OnItemClickListener {
         fun onItemClick(position: Int, product: Product)
+        fun onEditClick(position: Int, product: Product)
     }
 
 }

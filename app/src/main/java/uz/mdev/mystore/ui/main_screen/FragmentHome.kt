@@ -1,14 +1,24 @@
 package uz.mdev.mystore.ui.main_screen
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import uz.mdev.mystore.R
 import uz.mdev.mystore.adapters.TableAdapter
+import uz.mdev.mystore.databinding.DialogBottomAddProductBinding
 import uz.mdev.mystore.databinding.FragmentHomeBinding
+import uz.mdev.mystore.db.AppDatabase
+import uz.mdev.mystore.db.dao.ProductDao
 import uz.mdev.mystore.db.entities.Product
+import uz.mdev.mystore.helpers.makeMyToast
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,63 +48,97 @@ class FragmentHome : Fragment() {
 
     //adapters
     lateinit var tableAdapter: TableAdapter
+
+    //database
+    lateinit var product_dao: ProductDao
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        product_dao = AppDatabase.getInstance(requireContext()).productDao()
 
         setAdapters()
+        setButtons()
         return binding.root
     }
 
+    private fun setButtons() {
+        binding.apply {
+            addProduct.setOnClickListener {
+                var bottom_dialog =
+                    BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
+                var binding_dialog = DialogBottomAddProductBinding.inflate(layoutInflater)
+
+                binding_dialog.btnSaveEdit.setOnClickListener {
+                    val name = binding_dialog.name.text
+                    if (name.isNotEmpty()) {
+                        product_dao.addProduct(
+                            Product(
+                                0,
+                                name.toString(),
+                                3,
+                                null,
+                                binding_dialog.description.toString()
+                            )
+                        )
+                    } else {
+                        requireContext().makeMyToast("Name is empty!")
+                    }
+                }
+                binding_dialog.btnClose.setOnClickListener {
+                    bottom_dialog.dismiss()
+                }
+
+//                bottom_dialog.setOnShowListener {
+//                    val bottomSheetDialog = it as BottomSheetDialog
+//                    val parentLayout =
+//                        bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+//                    parentLayout?.let { it ->
+//                        val behaviour = BottomSheetBehavior.from(it)
+//                        setupFullHeight(it)
+//                        behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+//                    }
+//                }
+                bottom_dialog.setContentView(binding_dialog.root)
+                bottom_dialog.show()
+            }
+        }
+    }
+
+    private fun setupFullHeight(bottomSheet: View) {
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
+        bottomSheet.layoutParams = layoutParams
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
     private fun setAdapters() {
         var list = ArrayList<Product>()
-        list.add(Product(1, "Daftar", 1200000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(2, "Daftar Kaptar", 1200000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(11, "Daftar Varoq", 12000000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(111, "Daftar SAdass", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(31, "Daftard DA d", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(41, "Daftard DADAA", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(1, "Daftar", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(2, "Daftar Kaptar", 120000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(11, "Daftar Varoq", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(111, "Daftar SAdass", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(31, "Daftard DA d", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(41, "Daftard DADAA", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(1, "Daftar", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(2, "Daftar Kaptar", 120000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(11, "Daftar Varoq", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(111, "Daftar SAdass", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(31, "Daftard DA d", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(41, "Daftard DADAA", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(1, "Daftar", 1200000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(2, "Daftar Kaptar", 1200000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(11, "Daftar Varoq", 12000000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(111, "Daftar SAdass", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(31, "Daftard DA d", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(41, "Daftard DADAA", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(1, "Daftar", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(2, "Daftar Kaptar", 120000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(11, "Daftar Varoq", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(111, "Daftar SAdass", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(31, "Daftard DA d", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(41, "Daftard DADAA", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(1, "Daftar", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(2, "Daftar Kaptar", 120000f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(11, "Daftar Varoq", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(111, "Daftar SAdass", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(31, "Daftard DA d", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
-        list.add(Product(41, "Daftard DADAA", 1200f, 1000f, 100, 10, "Ziyo Print", 10, 12, 2000f))
         tableAdapter = TableAdapter(list, object : TableAdapter.OnItemClickListener {
             override fun onItemClick(position: Int, product: Product) {
 
             }
+
+            override fun onEditClick(position: Int, product: Product) {
+
+            }
         })
-        val dividerItemDecoration = DividerItemDecoration(requireContext(),
-            DividerItemDecoration.VERTICAL)
+        //rv decoration
+        val dividerItemDecoration = DividerItemDecoration(
+            requireContext(),
+            DividerItemDecoration.VERTICAL
+        )
         binding.rvProduct.addItemDecoration(dividerItemDecoration)
-        binding.rvProduct.adapter = tableAdapter
+        product_dao.getAllProducts().observe(
+            viewLifecycleOwner
+        ) {
+            list = ArrayList(it)
+            Toast.makeText(requireContext(), "" + it.size, Toast.LENGTH_SHORT).show()
+            tableAdapter.list = list
+            binding.rvProduct.adapter = tableAdapter
+        }
+
     }
 
     companion object {

@@ -1,5 +1,6 @@
 package uz.mdev.mystore.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
@@ -19,5 +20,5 @@ interface ProductDao {
     fun update(product: Product)
 
     @Query("select * from product")
-    fun getAllProducts(): List<Product>
+    fun getAllProducts():LiveData<List<Product>>
 }

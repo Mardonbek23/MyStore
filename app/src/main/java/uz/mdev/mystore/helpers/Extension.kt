@@ -1,6 +1,8 @@
 package uz.mdev.mystore.helpers
 
+import android.content.Context
 import android.view.View
+import android.widget.Toast
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -18,8 +20,8 @@ public fun View.visible() {
 }
 
 public fun setFloatToCurrencyFormat(float: Float): String {
-    var format=DecimalFormat("#,###,###")
-    format.minimumFractionDigits=0
+    var format = DecimalFormat("#,###,###")
+    format.minimumFractionDigits = 0
     val result = format.format(float)
     return result
 }
@@ -36,4 +38,8 @@ public fun setPercentForm(int: Int): String {
         return "0%"
     }
     return "$int%"
+}
+
+fun Context.makeMyToast(string: String) {
+    Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
 }
