@@ -185,6 +185,7 @@
                                 android:layout_height="30sp"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
+                                android:buttonTint="@color/main_text_color"
                                 android:gravity="center"
                                 android:padding="0dp"
                                 android:visibility="gone" />

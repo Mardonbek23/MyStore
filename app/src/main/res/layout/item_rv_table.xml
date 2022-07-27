@@ -32,9 +32,9 @@
             android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:padding="5dp"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="5dp"
             android:textColor="@color/main_text_color"
             android:textStyle="bold" />
 
@@ -116,12 +116,13 @@
             android:textStyle="bold" />
 
         <CheckBox
-            android:visibility="gone"
             android:layout_width="30sp"
             android:layout_height="30sp"
             android:layout_gravity="center"
             android:layout_marginLeft="8dp"
+            android:buttonTint="@color/main_text_color"
             android:gravity="center"
-            android:padding="0dp" />
+            android:padding="0dp"
+            android:visibility="gone" />
     </TableRow>
 </TableLayout>
