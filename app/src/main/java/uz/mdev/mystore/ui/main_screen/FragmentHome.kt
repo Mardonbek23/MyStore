@@ -48,6 +48,7 @@ class FragmentHome : Fragment() {
 
     //adapters
     lateinit var tableAdapter: TableAdapter
+    lateinit var list: List<Product>
 
     //database
     lateinit var product_dao: ProductDao
@@ -112,10 +113,23 @@ class FragmentHome : Fragment() {
         bottomSheet.layoutParams = layoutParams
     }
 
+    override fun onResume() {
+        super.onResume()
+        requireActivity().runOnUiThread {
+            product_dao.getAllProducts().observe(
+                viewLifecycleOwner
+            ) {
+                list = ArrayList(it)
+                tableAdapter.list = list as ArrayList<Product>
+                binding.rvProduct.adapter = tableAdapter
+            }
+        }
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     private fun setAdapters() {
-        var list = ArrayList<Product>()
-        tableAdapter = TableAdapter(list, object : TableAdapter.OnItemClickListener {
+        list = ArrayList()
+        tableAdapter = TableAdapter(list as ArrayList<Product>, object : TableAdapter.OnItemClickListener {
             override fun onItemClick(position: Int, product: Product) {
 
             }
@@ -124,20 +138,16 @@ class FragmentHome : Fragment() {
 
             }
         })
+
         //rv decoration
         val dividerItemDecoration = DividerItemDecoration(
             requireContext(),
             DividerItemDecoration.VERTICAL
         )
         binding.rvProduct.addItemDecoration(dividerItemDecoration)
-        product_dao.getAllProducts().observe(
-            viewLifecycleOwner
-        ) {
-            list = ArrayList(it)
-            Toast.makeText(requireContext(), "" + it.size, Toast.LENGTH_SHORT).show()
-            tableAdapter.list = list
-            binding.rvProduct.adapter = tableAdapter
-        }
+
+
+
 
     }
 

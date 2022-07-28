@@ -118,7 +118,7 @@
 
         <ImageView
             android:id="@+id/edit"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="16dp"
             android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -133,6 +133,6 @@
             android:buttonTint="@color/main_text_color"
             android:gravity="center"
             android:padding="0dp"
-            android:visibility="gone" />
+     />
     </TableRow>
 </TableLayout>

@@ -27,7 +27,7 @@ class TableAdapter(
                 interestPercent.setText(setPercentForm(product.interest_percent))
                 manufacturer.setText(product.manufacturer.toString())
                 giftQuantity.setText(setIntToStr(product.gift_quantity))
-                giftPercent.setText(setPercentForm(product.gift_percent))
+                giftPercent .setText(setPercentForm(product.gift_percent))
                 giftPrice.setText(setFloatToCurrencyFormat(product.gift_price))
                 edit.setOnClickListener {
                     listener.onEditClick(position, product)
