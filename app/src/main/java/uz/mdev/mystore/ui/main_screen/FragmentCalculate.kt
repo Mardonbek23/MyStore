@@ -41,8 +41,9 @@ class FragmentCalculate() : Fragment() {
         return inflater.inflate(R.layout.fragment_calculate, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
+
     }
 
 

@@ -109,6 +109,7 @@ class FragmentHead : Fragment() {
                 bottomNavigationView.menu.getItem(2).isChecked = true
                 viewPager.setCurrentItem(2, false)
                 toolbar.setTitle("Calculator")
+                landscapeMode.hide()
             }
         }
     }

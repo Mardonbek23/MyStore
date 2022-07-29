@@ -19,6 +19,7 @@ import uz.mdev.mystore.db.AppDatabase
 import uz.mdev.mystore.db.dao.ProductDao
 import uz.mdev.mystore.db.entities.Product
 import uz.mdev.mystore.helpers.*
+import uz.mdev.mystore.local_data.SharedPreferencesManager
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -52,12 +53,16 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
 
     //database
     lateinit var product_dao: ProductDao
+
+    //local data
+    lateinit var shared:SharedPreferencesManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         product_dao = AppDatabase.getInstance(requireContext()).productDao()
+        shared=SharedPreferencesManager()
 
         setAdapters()
         setButtons()
