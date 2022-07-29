@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import uz.mdev.mystore.R
 import uz.mdev.mystore.adapters.TableAdapter
@@ -115,29 +115,22 @@ class FragmentHome : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        requireActivity().runOnUiThread {
-            product_dao.getAllProducts().observe(
-                viewLifecycleOwner
-            ) {
-                list = ArrayList(it)
-                tableAdapter.list = list as ArrayList<Product>
-                binding.rvProduct.adapter = tableAdapter
-            }
-        }
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setAdapters() {
         list = ArrayList()
-        tableAdapter = TableAdapter(list as ArrayList<Product>, object : TableAdapter.OnItemClickListener {
-            override fun onItemClick(position: Int, product: Product) {
+        tableAdapter =
+            TableAdapter(list as ArrayList<Product>, object : TableAdapter.OnItemClickListener {
+                override fun onItemClick(position: Int, product: Product) {
 
-            }
+                }
 
-            override fun onEditClick(position: Int, product: Product) {
+                override fun onEditClick(position: Int, product: Product) {
 
-            }
-        })
+                }
+            })
 
         //rv decoration
         val dividerItemDecoration = DividerItemDecoration(
@@ -145,8 +138,14 @@ class FragmentHome : Fragment() {
             DividerItemDecoration.VERTICAL
         )
         binding.rvProduct.addItemDecoration(dividerItemDecoration)
+        binding.rvProduct.adapter = tableAdapter
 
-
+        product_dao.getAllProducts().observe(
+            viewLifecycleOwner
+        ) {
+            tableAdapter.list = it as ArrayList<Product>
+            tableAdapter.notifyDataSetChanged()
+        }
 
 
     }

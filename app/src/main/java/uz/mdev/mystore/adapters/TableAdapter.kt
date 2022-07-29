@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.mdev.mystore.databinding.ItemRvTableBinding
 import uz.mdev.mystore.db.entities.Product
+import uz.mdev.mystore.helpers.intTo4digits
 import uz.mdev.mystore.helpers.setFloatToCurrencyFormat
 import uz.mdev.mystore.helpers.setIntToStr
 import uz.mdev.mystore.helpers.setPercentForm
@@ -19,7 +20,7 @@ class TableAdapter(
         RecyclerView.ViewHolder(itemRvBinding.root) {
         fun onBind(product: Product) {
             itemRvBinding.apply {
-                id.text = setIntToStr(product.id)
+                id.text = intTo4digits(product.id)
                 name.setText(product.name)
                 totalPrice.setText(setFloatToCurrencyFormat(product.total_price))
                 minPrice.setText(setFloatToCurrencyFormat(product.min_price))
@@ -27,7 +28,7 @@ class TableAdapter(
                 interestPercent.setText(setPercentForm(product.interest_percent))
                 manufacturer.setText(product.manufacturer.toString())
                 giftQuantity.setText(setIntToStr(product.gift_quantity))
-                giftPercent .setText(setPercentForm(product.gift_percent))
+                giftPercent.setText(setPercentForm(product.gift_percent))
                 giftPrice.setText(setFloatToCurrencyFormat(product.gift_price))
                 edit.setOnClickListener {
                     listener.onEditClick(position, product)

@@ -43,3 +43,7 @@ public fun setPercentForm(int: Int): String {
 fun Context.makeMyToast(string: String) {
     Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
 }
+
+fun intTo4digits(int: Int): String {
+    return String.format("%04d", int)
+}
