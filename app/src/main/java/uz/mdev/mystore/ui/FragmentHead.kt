@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import uz.mdev.mystore.R
 import uz.mdev.mystore.adapters.AdapterPager
 import uz.mdev.mystore.databinding.FragmentHeadBinding
+import uz.mdev.mystore.db.entities.Product
 import uz.mdev.mystore.helpers.hide
 import uz.mdev.mystore.helpers.show
+import uz.mdev.mystore.ui.main_screen.FragmentHome
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,6 +33,7 @@ class FragmentHead : Fragment() {
     }
 
     lateinit var binding: FragmentHeadBinding
+    lateinit var adapterPager: AdapterPager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -44,7 +47,18 @@ class FragmentHead : Fragment() {
     private fun setComponents() {
         binding.apply {
             //set view pager adapter
-            viewPager.adapter = AdapterPager(childFragmentManager, lifecycle, 5)
+            adapterPager = AdapterPager(
+                childFragmentManager,
+                lifecycle,
+                5,
+                object : FragmentHome.interface_functions {
+                    override fun openCalculatePage() {
+                        landscapeMode.hide()
+                        viewPager.setCurrentItem(2)
+                        binding.bottomNavigationView.selectedItemId = R.id.item_calculate
+                    }
+                })
+            viewPager.adapter = adapterPager
             viewPager.isUserInputEnabled = false
 
             //set bottom navigation

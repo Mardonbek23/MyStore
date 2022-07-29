@@ -6,19 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import uz.mdev.mystore.R
+import uz.mdev.mystore.adapters.AdapterPager
 import uz.mdev.mystore.adapters.TableAdapter
 import uz.mdev.mystore.databinding.DialogBottomAddProductBinding
 import uz.mdev.mystore.databinding.FragmentHomeBinding
 import uz.mdev.mystore.db.AppDatabase
 import uz.mdev.mystore.db.dao.ProductDao
 import uz.mdev.mystore.db.entities.Product
-import uz.mdev.mystore.helpers.makeMyToast
+import uz.mdev.mystore.helpers.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,7 +31,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FragmentHome.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FragmentHome : Fragment() {
+class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -80,7 +80,7 @@ class FragmentHome : Fragment() {
                                 name.toString(),
                                 3,
                                 null,
-                                binding_dialog.description.toString()
+                                binding_dialog.edDescription.text.toString()
                             )
                         )
                     } else {
@@ -91,16 +91,6 @@ class FragmentHome : Fragment() {
                     bottom_dialog.dismiss()
                 }
 
-//                bottom_dialog.setOnShowListener {
-//                    val bottomSheetDialog = it as BottomSheetDialog
-//                    val parentLayout =
-//                        bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-//                    parentLayout?.let { it ->
-//                        val behaviour = BottomSheetBehavior.from(it)
-//                        setupFullHeight(it)
-//                        behaviour.state = BottomSheetBehavior.STATE_EXPANDED
-//                    }
-//                }
                 bottom_dialog.setContentView(binding_dialog.root)
                 bottom_dialog.show()
             }
@@ -124,11 +114,55 @@ class FragmentHome : Fragment() {
         tableAdapter =
             TableAdapter(list as ArrayList<Product>, object : TableAdapter.OnItemClickListener {
                 override fun onItemClick(position: Int, product: Product) {
-
+                    interfaceFunctions.openCalculatePage()
                 }
 
                 override fun onEditClick(position: Int, product: Product) {
+                    val bottom_dialog =
+                        BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
+                    val binding_dialog = DialogBottomAddProductBinding.inflate(layoutInflater)
+                    binding_dialog.apply {
 
+                        btnSaveEdit.setOnClickListener {
+
+                        }
+                        btnClose.setOnClickListener {
+                            bottom_dialog.dismiss()
+                        }
+                        btnSaveEdit.text = "Edit"
+                        title.text = intTo4digits(product.id)
+                        editAttributes.show()
+                        name.setText(product.name.toString())
+                        giftPercent.text = setPercentForm(product.gift_percent)
+                        minPercent.text = setPercentForm(product.min_percent)
+                        interestPercent.text = setPercentForm(product.interest_percent)
+                        tvOldBoughtPrice.text =
+                            setFloatToCurrencyWithSymbols(product.old_bought_price)
+                        tvBoughtPrice.text = setFloatToCurrencyWithSymbols(product.price_bought)
+                        tvOldTaxPrice.text = setFloatToCurrencyWithSymbols(product.old_tax_price)
+                        tvTaxPrice.text = setFloatToCurrencyWithSymbols(product.tax_price)
+                        tvOldGiftPrice.text = setFloatToCurrencyWithSymbols(product.old_gift_price)
+                        tvGiftPrice.text = setFloatToCurrencyWithSymbols(product.gift_price)
+                        tvOldMinPrice.text = setFloatToCurrencyWithSymbols(product.old_min_price)
+                        tvMinPrice.text = setFloatToCurrencyWithSymbols(product.min_price)
+                        tvOldPrice.setText(setFloatToCurrencyWithSymbols(product.old_total_price))
+                        tvTotalPrice.setText(setFloatToCurrencyWithSymbols(product.total_price))
+
+
+                    }
+                    if (product.description != null) binding_dialog.edDescription.setText(product.description.toString())
+                    bottom_dialog.setOnShowListener {
+                        val bottomSheetDialog = it as BottomSheetDialog
+                        val parentLayout =
+                            bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+                        parentLayout?.let { it ->
+                            val behaviour = BottomSheetBehavior.from(it)
+                            setupFullHeight(it)
+                            behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+                        }
+                    }
+                    bottom_dialog.setContentView(binding_dialog.root)
+                    bottom_dialog.show()
                 }
             })
 
@@ -150,23 +184,7 @@ class FragmentHome : Fragment() {
 
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FragmentHome.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentHome().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    interface interface_functions {
+        fun openCalculatePage()
     }
 }

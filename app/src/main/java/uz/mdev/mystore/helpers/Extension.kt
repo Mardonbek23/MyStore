@@ -15,8 +15,8 @@ public fun View.hide() {
     this.visibility = View.GONE
 }
 
-public fun View.visible() {
-    this.visibility = View.VISIBLE
+public fun View.invisible() {
+    this.visibility = View.INVISIBLE
 }
 
 public fun setFloatToCurrencyFormat(float: Float): String {
@@ -24,6 +24,13 @@ public fun setFloatToCurrencyFormat(float: Float): String {
     format.minimumFractionDigits = 0
     val result = format.format(float)
     return result
+}
+
+fun setFloatToCurrencyWithSymbols(float: Float): String {
+    val format = NumberFormat.getCurrencyInstance()
+    format.maximumFractionDigits = 0
+    format.currency = Currency.getInstance("uzs")
+    return  format.format(float)
 }
 
 public fun setIntToStr(int: Int): String {
