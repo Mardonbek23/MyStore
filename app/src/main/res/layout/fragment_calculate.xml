@@ -16,152 +16,166 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-            <HorizontalScrollView
-                android:scrollbars="none"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:padding="10dp">
 
-                    <LinearLayout
+                    <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:scrollbars="none">
 
-                        <TextView
-                            android:layout_width="45dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:ellipsize="end"
-                            android:gravity="right|center_vertical"
-                            android:maxLines="1"
-                            android:padding="5dp"
-                            android:text="№"
-                            android:textColor="@color/main_text_color"
-                            android:textStyle="bold" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:ellipsize="end"
-                            android:gravity="left|center_vertical"
-                            android:maxLines="1"
-                            android:padding="5dp"
-                            android:text="Name"
-                            android:textColor="@color/main_text_color"
-                            android:textStyle="bold" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:layout_margin="5dp"
-                            android:text="Quantity"
-                            android:textColor="@color/main_text_color"
-                            android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="45dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:ellipsize="end"
+                                    android:gravity="right|center_vertical"
+                                    android:maxLines="1"
+                                    android:padding="5dp"
+                                    android:text="№"
+                                    android:textColor="@color/main_text_color"
+                                    android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tv_bought_price"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/style_null"
-                            android:gravity="right"
-                            android:maxLines="1"
-                            android:padding="5dp"
-                            android:text="Bought price"
-                            android:textColor="@color/main_text_color"
-                            android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:ellipsize="end"
+                                    android:gravity="left|center_vertical"
+                                    android:maxLines="1"
+                                    android:padding="5dp"
+                                    android:text="Name"
+                                    android:textColor="@color/main_text_color"
+                                    android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tv_tax_price"
-                            android:layout_width="90dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/style_null"
-                            android:gravity="right"
-                            android:maxLines="1"
-                            android:padding="5dp"
-                            android:text="Tax price"
-                            android:textColor="@color/main_text_color"
-                            android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tv_min_price"
-                            android:layout_width="90dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/style_null"
-                            android:ellipsize="end"
-                            android:gravity="right"
-                            android:maxLines="1"
-                            android:padding="5dp"
-                            android:text="Min price"
-                            android:textColor="@color/main_text_color"
-                            android:textStyle="bold" />
+                                <TextView
+                                    android:id="@+id/tv_bought_price"
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/style_null"
+                                    android:gravity="right"
+                                    android:maxLines="1"
+                                    android:padding="5dp"
+                                    android:text="Bought price"
+                                    android:textColor="@color/main_text_color"
+                                    android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tv_old_price"
-                            android:layout_width="90dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/style_null"
-                            android:ellipsize="end"
-                            android:gravity="right"
-                            android:maxLines="1"
-                            android:padding="5dp"
-                            android:text="Old price"
-                            android:textColor="@color/main_text_color"
-                            android:textStyle="bold" />
+                                <TextView
+                                    android:id="@+id/tv_tax_price"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/style_null"
+                                    android:gravity="right"
+                                    android:maxLines="1"
+                                    android:padding="5dp"
+                                    android:text="Tax price"
+                                    android:textColor="@color/main_text_color"
+                                    android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tv_total_price"
-                            android:layout_width="90dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/style_null"
-                            android:gravity="right"
-                            android:maxLines="1"
-                            android:padding="5dp"
-                            android:text="Price"
-                            android:textColor="@color/main_text_color"
-                            android:textStyle="bold" />
+                                <TextView
+                                    android:id="@+id/tv_min_price"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/style_null"
+                                    android:ellipsize="end"
+                                    android:gravity="right"
+                                    android:maxLines="1"
+                                    android:padding="5dp"
+                                    android:text="Min price"
+                                    android:textColor="@color/main_text_color"
+                                    android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/tv_benefit"
-                            android:layout_width="90dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/style_null"
-                            android:ellipsize="end"
-                            android:gravity="right"
-                            android:maxLines="1"
-                            android:padding="5dp"
-                            android:text="Benefit"
-                            android:textColor="@color/main_text_color"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+                                <TextView
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="5dp"
+                                    android:gravity="center"
+                                    android:text="Quantity"
+                                    android:textColor="@color/main_text_color"
+                                    android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:background="@color/main_text_color" />
+                                <TextView
+                                    android:id="@+id/tv_total_price"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/style_null"
+                                    android:gravity="right"
+                                    android:maxLines="1"
+                                    android:padding="5dp"
+                                    android:text="Price"
+                                    android:textColor="@color/main_text_color"
+                                    android:textStyle="bold" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv"
-                        android:layout_marginTop="3dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                                <TextView
+                                    android:id="@+id/tv_benefit"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/style_null"
+                                    android:ellipsize="end"
+                                    android:gravity="right"
+                                    android:maxLines="1"
+                                    android:padding="5dp"
+                                    android:text="Benefit"
+                                    android:textColor="@color/main_text_color"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tv_old_price"
+                                    android:layout_width="90dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/style_null"
+                                    android:ellipsize="end"
+                                    android:gravity="right"
+                                    android:maxLines="1"
+                                    android:padding="5dp"
+                                    android:text="Old price"
+                                    android:textColor="@color/main_text_color"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="3dp"
+                                android:background="@color/main_text_color" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
                 </LinearLayout>
 
-            </HorizontalScrollView>
+            </androidx.cardview.widget.CardView>
 
 
         </LinearLayout>

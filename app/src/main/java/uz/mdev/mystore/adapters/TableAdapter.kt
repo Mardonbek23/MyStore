@@ -39,6 +39,7 @@ class TableAdapter(
                 checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
                     list[adapterPosition].isSelected=isChecked
                 }
+                checkbox.isChecked=product.isSelected
             }
         }
     }

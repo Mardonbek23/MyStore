@@ -74,8 +74,11 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setButtons() {
         binding.apply {
+
+            //add product button
             addProduct.setOnClickListener {
                 val bottom_dialog =
                     BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
@@ -105,6 +108,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                 bottom_dialog.show()
             }
 
+            //calculate button
             calculate.setOnClickListener {
                 var ids = ArrayList<Int>()
                 for (product in tableAdapter.list) {
@@ -120,6 +124,15 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                     Toast.makeText(requireContext(), "Select items!", Toast.LENGTH_SHORT).show()
                 }
 
+            }
+
+            //checkbox button
+            checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
+                for (i in list.indices) {
+                    list[i].isSelected = isChecked
+                }
+                tableAdapter.list = list as ArrayList<Product>
+                tableAdapter.notifyDataSetChanged()
             }
         }
     }
@@ -204,7 +217,8 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
         product_dao.getAllProducts().observe(
             viewLifecycleOwner
         ) {
-            tableAdapter.list = it as ArrayList<Product>
+            list = ArrayList(it)
+            tableAdapter.list = list as ArrayList<Product>
             tableAdapter.notifyDataSetChanged()
         }
 
