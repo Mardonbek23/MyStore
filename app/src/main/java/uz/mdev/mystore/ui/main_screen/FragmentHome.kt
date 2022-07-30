@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -51,6 +52,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
     //adapters
     lateinit var tableAdapter: TableAdapter
     lateinit var list: List<Product>
+    lateinit var spinnerCategoryAdapter: ArrayAdapter<String>
 
     //database
     lateinit var product_dao: ProductDao
@@ -75,10 +77,10 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
     private fun setButtons() {
         binding.apply {
             addProduct.setOnClickListener {
-                var bottom_dialog =
+                val bottom_dialog =
                     BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
-                var binding_dialog = DialogBottomAddProductBinding.inflate(layoutInflater)
-
+                val binding_dialog = DialogBottomAddProductBinding.inflate(layoutInflater)
+                binding_dialog.spinnerCategory.adapter = spinnerCategoryAdapter
                 binding_dialog.btnSaveEdit.setOnClickListener {
                     val name = binding_dialog.name.text
                     if (name.isNotEmpty()) {
@@ -86,7 +88,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                             Product(
                                 0,
                                 name.toString(),
-                                3,
+                                binding_dialog.spinnerCategory.selectedItem.toString(),
                                 null,
                                 binding_dialog.edDescription.text.toString()
                             )
@@ -110,12 +112,11 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                         ids.add(product.id)
                     }
                 }
-                if (ids.size>0){
+                if (ids.size > 0) {
                     val toJson = gson.toJson(ids)
                     shared.setCalculateItems(toJson)
                     interfaceFunctions.openCalculatePage()
-                }
-                else{
+                } else {
                     Toast.makeText(requireContext(), "Select items!", Toast.LENGTH_SHORT).show()
                 }
 
@@ -207,7 +208,17 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
             tableAdapter.notifyDataSetChanged()
         }
 
-
+        //set spinner adapter
+        val spinner_items = ArrayList<String>()
+        spinner_items.add("None")
+        spinner_items.add("Products")
+        spinner_items.add("Freshs")
+        spinnerCategoryAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            spinner_items
+        )
+        spinnerCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     }
 
     interface interface_functions {

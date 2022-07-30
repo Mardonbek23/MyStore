@@ -2,7 +2,6 @@ package uz.mdev.mystore.ui
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +9,10 @@ import android.view.ViewGroup
 import uz.mdev.mystore.R
 import uz.mdev.mystore.adapters.AdapterPager
 import uz.mdev.mystore.databinding.FragmentHeadBinding
-import uz.mdev.mystore.db.entities.Product
 import uz.mdev.mystore.helpers.hide
 import uz.mdev.mystore.helpers.show
 import uz.mdev.mystore.local_data.SharedPreferencesManager
 import uz.mdev.mystore.ui.main_screen.FragmentHome
-import java.lang.Exception
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,7 +38,7 @@ class FragmentHead : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentHeadBinding.inflate(inflater, container, false)
         shared= SharedPreferencesManager(requireContext())
         setComponents()
@@ -58,8 +55,9 @@ class FragmentHead : Fragment() {
                 5,
                 object : FragmentHome.interface_functions {
                     override fun openCalculatePage() {
-                        landscapeMode.hide()
-                        viewPager.setCurrentItem(2)
+                        landscapeMode.show()
+                        viewPager.currentItem = 2
+                        toolbar.title = "Calculator"
                         binding.bottomNavigationView.selectedItemId = R.id.item_calculate
                     }
                 })
@@ -77,15 +75,15 @@ class FragmentHead : Fragment() {
                     R.id.item_home -> {
                         landscapeMode.show()
                         viewPager.setCurrentItem(0, false)
-                        toolbar.setTitle("Home")
+                        toolbar.title = "Home"
                     }
                     R.id.item_business -> {
                         viewPager.setCurrentItem(1, false)
-                        toolbar.setTitle("Business")
+                        toolbar.title = "Business"
                     }
                     R.id.item_statistics -> {
                         viewPager.setCurrentItem(3, false)
-                        toolbar.setTitle("Statistics")
+                        toolbar.title = "Statistics"
                     }
                     R.id.item_profile -> {
                         viewPager.setCurrentItem(4, false)
@@ -113,29 +111,9 @@ class FragmentHead : Fragment() {
             fab.setOnClickListener {
                 bottomNavigationView.menu.getItem(2).isChecked = true
                 viewPager.setCurrentItem(2, false)
-                toolbar.setTitle("Calculator")
-                landscapeMode.hide()
+                toolbar.title = "Calculator"
+                landscapeMode.show()
             }
         }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FragmentHead.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentHead().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

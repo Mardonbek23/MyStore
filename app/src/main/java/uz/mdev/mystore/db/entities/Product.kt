@@ -8,7 +8,7 @@ class Product {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
     var name: String? = null
-    var category: Int = 0
+    var category: String = "None"
     var images: String? = null
     var description: String? = null
     var total_price: Float = 0f
@@ -34,66 +34,11 @@ class Product {
     var old_gift_price: Float = 0f
     var old_manufacturer: String? = null
     var isSelected: Boolean = false
+    var benefit: Float = 0f
 
     constructor()
 
-    constructor(
-        id: Int,
-        name: String?,
-        category: Int,
-        price_bought: Float,
-        total_price: Float,
-        tax_price: Float,
-        min_price: Float,
-        interest_percent: Int,
-        size: String?,
-        quantity: Int,
-        status: Int,
-        images: String?,
-        gift_quantity: Int,
-        gift_percent: Int,
-        gift_price: Float,
-        manufacturer: String?,
-        description: String?,
-        old_bought_price: Float,
-        old_tax_price: Float,
-        old_min_price: Float,
-        old_interest_percent: Int,
-        old_total_price: Float,
-        old_quantity: Int,
-        old_gift_quantity: Int,
-        old_gift_price: Float,
-        old_manufacturer: String?,
-    ) {
-        this.id = id
-        this.name = name
-        this.category = category
-        this.price_bought = price_bought
-        this.total_price = total_price
-        this.tax_price = tax_price
-        this.min_price = min_price
-        this.interest_percent = interest_percent
-        this.size = size
-        this.quantity = quantity
-        this.status = status
-        this.images = images
-        this.gift_quantity = gift_quantity
-        this.gift_percent = gift_percent
-        this.gift_price = gift_price
-        this.manufacturer = manufacturer
-        this.description = description
-        this.old_bought_price = old_bought_price
-        this.old_tax_price = old_tax_price
-        this.old_min_price = old_min_price
-        this.old_interest_percent = old_interest_percent
-        this.old_total_price = old_total_price
-        this.old_quantity = old_quantity
-        this.old_gift_quantity = old_gift_quantity
-        this.old_gift_price = old_gift_price
-        this.old_manufacturer = old_manufacturer
-    }
-
-    constructor(id: Int, name: String?, category: Int, images: String?, description: String?) {
+    constructor(id: Int, name: String?, category: String, images: String?, description: String?) {
         this.id = id
         this.name = name
         this.category = category
