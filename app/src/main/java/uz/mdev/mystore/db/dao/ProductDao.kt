@@ -20,6 +20,9 @@ interface ProductDao {
     fun update(product: Product)
 
     @Query("select * from product")
-    fun getAllProducts():LiveData<List<Product>>
+    fun getAllProducts(): LiveData<List<Product>>
+
+    @Query("select * from product where id in (:ids)")
+    fun getProductsByIds(ids: List<Int>): List<Product>
 
 }

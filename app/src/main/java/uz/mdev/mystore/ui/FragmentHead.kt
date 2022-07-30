@@ -13,6 +13,7 @@ import uz.mdev.mystore.databinding.FragmentHeadBinding
 import uz.mdev.mystore.db.entities.Product
 import uz.mdev.mystore.helpers.hide
 import uz.mdev.mystore.helpers.show
+import uz.mdev.mystore.local_data.SharedPreferencesManager
 import uz.mdev.mystore.ui.main_screen.FragmentHome
 import java.lang.Exception
 
@@ -36,11 +37,13 @@ class FragmentHead : Fragment() {
 
     lateinit var binding: FragmentHeadBinding
     lateinit var adapterPager: AdapterPager
+    lateinit var shared: SharedPreferencesManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentHeadBinding.inflate(inflater, container, false)
+        shared= SharedPreferencesManager(requireContext())
         setComponents()
         setFab()
         return binding.root

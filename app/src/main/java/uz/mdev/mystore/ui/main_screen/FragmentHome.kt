@@ -13,7 +13,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import uz.mdev.mystore.R
-import uz.mdev.mystore.adapters.AdapterPager
 import uz.mdev.mystore.adapters.TableAdapter
 import uz.mdev.mystore.databinding.DialogBottomAddProductBinding
 import uz.mdev.mystore.databinding.FragmentHomeBinding
@@ -105,7 +104,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
             }
 
             calculate.setOnClickListener {
-                var ids = HashSet<Int>()
+                var ids = ArrayList<Int>()
                 for (product in tableAdapter.list) {
                     if (product.isSelected) {
                         ids.add(product.id)

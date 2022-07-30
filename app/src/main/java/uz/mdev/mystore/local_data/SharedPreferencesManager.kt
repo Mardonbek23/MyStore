@@ -20,7 +20,7 @@ class SharedPreferencesManager(var context: Context) {
 
     fun setCalculateItems(newValue: String?) {
         val editor = getSharedPreferences().edit()
-        editor.putString(SOME_STRING_VALUE, newValue!!)
+        editor.putString(SOME_STRING_VALUE, newValue)
         editor.commit()
     }
 }
