@@ -33,6 +33,7 @@ class Product {
     var old_gift_quantity: Int = 0
     var old_gift_price: Float = 0f
     var old_manufacturer: String? = null
+    var isSelected: Boolean = false
 
     constructor()
 

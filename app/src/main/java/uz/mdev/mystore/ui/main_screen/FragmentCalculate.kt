@@ -1,13 +1,17 @@
 package uz.mdev.mystore.ui.main_screen
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import uz.mdev.mystore.R
-import uz.mdev.mystore.db.entities.Product
+import androidx.fragment.app.Fragment
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import uz.mdev.mystore.databinding.FragmentCalculateBinding
+import uz.mdev.mystore.local_data.SharedPreferencesManager
+import java.lang.reflect.Type
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,17 +36,28 @@ class FragmentCalculate() : Fragment() {
         }
     }
 
+    lateinit var binding: FragmentCalculateBinding
+    lateinit var shared: SharedPreferencesManager
+    lateinit var gson: Gson
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment
+        binding = FragmentCalculateBinding.inflate(inflater, container, false)
+        shared = SharedPreferencesManager(requireContext())
+        gson = Gson()
 
-        return inflater.inflate(R.layout.fragment_calculate, container, false)
+        return binding.root
     }
 
     override fun onResume() {
         super.onResume()
+        if (shared.getCalculateItems() != null) {
+            val type: Type = object : TypeToken<Set<Int>>() {}.type
+            val ids = gson.fromJson<HashSet<Int>>(shared.getCalculateItems(), type)
+            Toast.makeText(requireContext(), "" + ids.size, Toast.LENGTH_SHORT).show()
+        }
+
 
     }
 

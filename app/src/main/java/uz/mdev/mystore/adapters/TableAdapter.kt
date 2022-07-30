@@ -36,6 +36,9 @@ class TableAdapter(
                 root.setOnClickListener {
                     listener.onItemClick(adapterPosition,product)
                 }
+                checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
+                    list[adapterPosition].isSelected=isChecked
+                }
             }
         }
     }

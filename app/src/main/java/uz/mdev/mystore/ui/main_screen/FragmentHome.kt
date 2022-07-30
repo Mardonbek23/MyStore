@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.gson.Gson
 import uz.mdev.mystore.R
 import uz.mdev.mystore.adapters.AdapterPager
 import uz.mdev.mystore.adapters.TableAdapter
@@ -55,14 +57,16 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
     lateinit var product_dao: ProductDao
 
     //local data
-    lateinit var shared:SharedPreferencesManager
+    lateinit var shared: SharedPreferencesManager
+    lateinit var gson: Gson
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         product_dao = AppDatabase.getInstance(requireContext()).productDao()
-        shared=SharedPreferencesManager()
+        shared = SharedPreferencesManager(requireContext())
+        gson = Gson()
 
         setAdapters()
         setButtons()
@@ -99,6 +103,24 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                 bottom_dialog.setContentView(binding_dialog.root)
                 bottom_dialog.show()
             }
+
+            calculate.setOnClickListener {
+                var ids = HashSet<Int>()
+                for (product in tableAdapter.list) {
+                    if (product.isSelected) {
+                        ids.add(product.id)
+                    }
+                }
+                if (ids.size>0){
+                    val toJson = gson.toJson(ids)
+                    shared.setCalculateItems(toJson)
+                    interfaceFunctions.openCalculatePage()
+                }
+                else{
+                    Toast.makeText(requireContext(), "Select items!", Toast.LENGTH_SHORT).show()
+                }
+
+            }
         }
     }
 
@@ -119,7 +141,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
         tableAdapter =
             TableAdapter(list as ArrayList<Product>, object : TableAdapter.OnItemClickListener {
                 override fun onItemClick(position: Int, product: Product) {
-                    interfaceFunctions.openCalculatePage()
+
                 }
 
                 override fun onEditClick(position: Int, product: Product) {
