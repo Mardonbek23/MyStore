@@ -19,7 +19,7 @@ import uz.mdev.mystore.databinding.DialogBottomAddProductBinding
 import uz.mdev.mystore.databinding.FragmentHomeBinding
 import uz.mdev.mystore.db.AppDatabase
 import uz.mdev.mystore.db.dao.ProductDao
-import uz.mdev.mystore.db.entities.Product
+import uz.mdev.mystore.db.entities.product.Product
 import uz.mdev.mystore.helpers.*
 import uz.mdev.mystore.local_data.SharedPreferencesManager
 

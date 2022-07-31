@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import uz.mdev.mystore.db.entities.Product
 import uz.mdev.mystore.ui.main_screen.*
 
 class AdapterPager(

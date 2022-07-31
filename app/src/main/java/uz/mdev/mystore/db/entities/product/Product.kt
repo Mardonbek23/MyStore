@@ -1,7 +1,10 @@
-package uz.mdev.mystore.db.entities
+package uz.mdev.mystore.db.entities.product
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
+import uz.mdev.mystore.helpers.ConverterProductPriceType
 
 @Entity(tableName = "product")
 class Product {
@@ -36,6 +39,8 @@ class Product {
     var old_manufacturer: String? = null
     var isSelected: Boolean = false
     var benefit: Float = 0f
+    @TypeConverters(ConverterProductPriceType::class)
+    var list:List<ProductPriceDetails>?=null
 
     constructor()
 

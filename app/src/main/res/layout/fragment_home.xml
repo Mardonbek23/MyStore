@@ -63,9 +63,9 @@
             </RelativeLayout>
 
             <HorizontalScrollView
-                android:layout_marginTop="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:scrollbars="none">
 
                 <LinearLayout
@@ -230,6 +230,10 @@
 
                 </LinearLayout>
             </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

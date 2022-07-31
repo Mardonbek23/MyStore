@@ -1,14 +1,10 @@
 package uz.mdev.mystore.adapters
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import uz.mdev.mystore.databinding.ItemRvCalculateBinding
-import uz.mdev.mystore.databinding.ItemRvTableBinding
-import uz.mdev.mystore.db.entities.Product
+import uz.mdev.mystore.db.entities.product.Product
 import uz.mdev.mystore.helpers.intTo4digits
 import uz.mdev.mystore.helpers.setFloatToCurrencyFormat
 
@@ -88,6 +84,9 @@ class CalculateAdapter(
 
                         listener.onPlusButtonClick(click_position, list[click_position])
                     }
+                }
+                removeItem.setOnClickListener {
+                    listener.onRemoveClick(click_position,product)
                 }
                 tvBoughtPrice.setOnEditorActionListener { v, actionId, event ->
                     if (tvBoughtPrice.text.isNotEmpty()) {
@@ -173,6 +172,7 @@ class CalculateAdapter(
     interface OnItemClickListener {
         fun onItemClick(position: Int, product: Product)
         fun onEditClick(position: Int, product: Product)
+        fun onRemoveClick(position: Int, product: Product)
         fun onPlusButtonClick(position: Int, product: Product)
         fun onMinusButtonClick(position: Int, product: Product)
     }

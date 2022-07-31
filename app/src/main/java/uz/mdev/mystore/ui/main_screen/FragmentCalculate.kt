@@ -1,6 +1,8 @@
 package uz.mdev.mystore.ui.main_screen
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +16,7 @@ import uz.mdev.mystore.adapters.CalculateAdapter
 import uz.mdev.mystore.databinding.FragmentCalculateBinding
 import uz.mdev.mystore.db.AppDatabase
 import uz.mdev.mystore.db.dao.ProductDao
-import uz.mdev.mystore.db.entities.Product
+import uz.mdev.mystore.db.entities.product.Product
 import uz.mdev.mystore.helpers.makeMyToast
 import uz.mdev.mystore.local_data.SharedPreferencesManager
 import java.lang.reflect.Type
@@ -65,12 +67,15 @@ class FragmentCalculate() : Fragment() {
     private fun setButtons() {
         binding.apply {
             makeCalc.setOnClickListener {
-                adapter.total_tax_price = taxPrice.text.toString().toFloat()
+                adapter.total_tax_price=0f
+                if (taxPrice.text.isNotEmpty()) {
+                    adapter.total_tax_price = taxPrice.text.toString().toFloat()
+                }
                 list = adapter.list
                 var total_bought_price = 0f
                 var is_correct = false
                 for (product in list) {
-                    total_bought_price += product.price_bought*product.quantity
+                    total_bought_price += product.price_bought * product.quantity
                     if (product.price_bought == 0f) {
                         is_correct = true
                         requireContext().makeMyToast("${product.name} is not have bought price!")
@@ -83,7 +88,31 @@ class FragmentCalculate() : Fragment() {
                 }
             }
             applyCalc.setOnClickListener {
+                if (adapter.list.size > 0) {
+                    productDao.updateListProducts(adapter.list)
+                    shared.setCalculateItems(null)
+                    Toast.makeText(requireContext(), "Updated!", Toast.LENGTH_SHORT).show()
+                }
+            }
+            deleteCalc.setOnClickListener {
+                val dialog = AlertDialog.Builder(requireContext())
+                dialog.setTitle("Delete")
+                dialog.setMessage("Are you sure to delete calculating?")
+                dialog.setPositiveButton("Yes", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        adapter.list = ArrayList()
+                        adapter.total_bought_price = 0f
+                        adapter.total_tax_price = 0f
+                        adapter.notifyDataSetChanged()
+                        shared.setCalculateItems(null)
+                    }
+                })
+                dialog.setNegativeButton("No", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
 
+                    }
+                })
+                dialog.show()
             }
         }
     }
@@ -97,6 +126,27 @@ class FragmentCalculate() : Fragment() {
             }
 
             override fun onEditClick(position: Int, product: Product) {
+            }
+
+            override fun onRemoveClick(position: Int, product: Product) {
+                val dialog = AlertDialog.Builder(requireContext())
+                dialog.setTitle("Remove")
+                dialog.setMessage("Are you sure to remove ${product.name}-from calculating?")
+                dialog.setPositiveButton("Yes", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        adapter.list.remove(product)
+                        adapter.notifyDataSetChanged()
+                        Toast.makeText(requireContext(), "Removed!", Toast.LENGTH_SHORT).show()
+                    }
+                })
+                dialog.setNegativeButton("No", object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+
+                    }
+                })
+                dialog.show()
+
+
             }
 
             override fun onPlusButtonClick(position: Int, product: Product) {

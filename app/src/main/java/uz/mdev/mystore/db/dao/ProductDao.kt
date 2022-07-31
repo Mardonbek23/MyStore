@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
-import uz.mdev.mystore.db.entities.Product
+import uz.mdev.mystore.db.entities.product.Product
 
 @Dao
 interface ProductDao {

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.mdev.mystore.databinding.ItemRvTableBinding
-import uz.mdev.mystore.db.entities.Product
+import uz.mdev.mystore.db.entities.product.Product
 import uz.mdev.mystore.helpers.intTo4digits
 import uz.mdev.mystore.helpers.setFloatToCurrencyFormat
 import uz.mdev.mystore.helpers.setIntToStr

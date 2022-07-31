@@ -197,9 +197,10 @@
         android:textStyle="bold" />
 
     <ImageView
+        android:id="@+id/remove_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="24dp"
         android:layout_gravity="center"
         android:src="@drawable/ic_close"
         app:tint="@color/red_color" />
