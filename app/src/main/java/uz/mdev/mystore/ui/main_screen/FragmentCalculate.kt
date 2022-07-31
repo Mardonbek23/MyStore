@@ -58,8 +58,35 @@ class FragmentCalculate() : Fragment() {
         gson = Gson()
         productDao = AppDatabase.getInstance(requireContext()).productDao()
 
-        setAdapter()
         return binding.root
+    }
+
+    private fun setButtons() {
+        binding.apply {
+            makeCalc.setOnClickListener {
+                adapter.total_tax_price = taxPrice.text.toString().toFloat()
+                list = adapter.list
+                var total_bought_price = 0f
+                var is_correct = false
+                for (product in list) {
+                    total_bought_price += product.price_bought
+                    if (product.price_bought == 0f) {
+                        is_correct = true
+                        requireContext().makeMyToast("${product.name} is not have bought price!")
+                        break
+                    }
+                }
+                if (!is_correct) {
+                    adapter.total_bought_price = total_bought_price
+                    adapter.notifyDataSetChanged()
+                }
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
     }
 
     private fun setAdapter() {
@@ -71,7 +98,15 @@ class FragmentCalculate() : Fragment() {
 
             override fun onEditClick(position: Int, product: Product) {
             }
-        })
+
+            override fun onPlusButtonClick(position: Int, product: Product) {
+
+            }
+
+            override fun onMinusButtonClick(position: Int, product: Product) {
+
+            }
+        }, 0f, 0f)
         val dividerItemDecoration = DividerItemDecoration(
             requireContext(),
             DividerItemDecoration.VERTICAL
@@ -85,10 +120,13 @@ class FragmentCalculate() : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onResume() {
         super.onResume()
+        setAdapter()
+        setButtons()
         if (shared.getCalculateItems() != null) {
             val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
             val ids = gson.fromJson<ArrayList<Int>>(shared.getCalculateItems(), type)
-            adapter.list = productDao.getProductsByIds(ids) as ArrayList<Product>
+            list = productDao.getProductsByIds(ids) as ArrayList<Product>
+            adapter.list = list
             adapter.notifyDataSetChanged()
         }
 
