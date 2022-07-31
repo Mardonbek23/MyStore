@@ -14,7 +14,7 @@ class Product {
     var total_price: Float = 0f
     var min_price: Float = 0f
     var quantity: Int = 0
-    var interest_percent: Int = 20
+    var interest_percent: Int = 30
     var min_percent: Int = 5
     var manufacturer: String? = null
     var gift_quantity: Int = 0

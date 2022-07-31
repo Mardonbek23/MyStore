@@ -58,6 +58,7 @@ class FragmentCalculate() : Fragment() {
         gson = Gson()
         productDao = AppDatabase.getInstance(requireContext()).productDao()
 
+        setButtons()
         return binding.root
     }
 
@@ -69,7 +70,7 @@ class FragmentCalculate() : Fragment() {
                 var total_bought_price = 0f
                 var is_correct = false
                 for (product in list) {
-                    total_bought_price += product.price_bought
+                    total_bought_price += product.price_bought*product.quantity
                     if (product.price_bought == 0f) {
                         is_correct = true
                         requireContext().makeMyToast("${product.name} is not have bought price!")
@@ -81,13 +82,12 @@ class FragmentCalculate() : Fragment() {
                     adapter.notifyDataSetChanged()
                 }
             }
+            applyCalc.setOnClickListener {
+
+            }
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-    }
 
     private fun setAdapter() {
         list = ArrayList()
@@ -121,7 +121,6 @@ class FragmentCalculate() : Fragment() {
     override fun onResume() {
         super.onResume()
         setAdapter()
-        setButtons()
         if (shared.getCalculateItems() != null) {
             val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
             val ids = gson.fromJson<ArrayList<Int>>(shared.getCalculateItems(), type)

@@ -25,4 +25,7 @@ interface ProductDao {
     @Query("select * from product where id in (:ids)")
     fun getProductsByIds(ids: List<Int>): List<Product>
 
+    @Update(onConflict = REPLACE)
+    fun updateListProducts(list: List<Product>)
+
 }

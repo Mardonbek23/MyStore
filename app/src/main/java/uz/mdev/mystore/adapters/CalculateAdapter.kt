@@ -33,7 +33,7 @@ class CalculateAdapter(
                     setFloatToCurrencyFormat(product.tax_price * product.quantity)
                 tvMinPrice.text = setFloatToCurrencyFormat(product.min_price)
                 tvOldPrice.text = setFloatToCurrencyFormat(product.old_total_price)
-                tvTotalPrice.setText(setFloatToCurrencyFormat(product.old_total_price))
+                tvTotalPrice.setText(setFloatToCurrencyFormat(product.total_price))
                 quantity.setText(product.quantity.toString())
                 tvBenefit.text = setFloatToCurrencyFormat(product.benefit)
 
@@ -43,27 +43,27 @@ class CalculateAdapter(
         }
 
         fun calculate_prices(product: Product, click_position: Int) {
-            if (total_bought_price != 0f ) {
+            if (total_bought_price != 0f) {
 
                 //tax price
                 list[click_position].tax_price =
-                    (product.price_bought * total_tax_price / total_bought_price)/product.quantity
+                    product.price_bought * total_tax_price / (total_bought_price)
 
                 //min price
                 list[click_position].min_price =
-                    list[click_position].tax_price + product.price_bought * (1 + product.min_percent / 100)
+                    list[click_position].tax_price + product.price_bought * (1 + product.min_percent.toFloat() / 100)
 
                 //price
                 list[click_position].total_price =
-                    list[click_position].tax_price + product.price_bought * (1 + product.interest_percent / 100)
+                    list[click_position].tax_price.plus(product.price_bought * (1 + product.interest_percent.toFloat() / 100).toFloat())
 
                 //gift price
                 list[click_position].gift_price =
-                    list[click_position].tax_price + product.price_bought * (1 + (product.interest_percent - product.gift_percent) / 100)
+                    list[click_position].tax_price + product.price_bought * (1 + (product.interest_percent - product.gift_percent).toFloat() / 100).toFloat()
 
                 //benefit
                 list[click_position].benefit =
-                    (list[click_position].total_price - list[click_position].price_bought - list[click_position].tax_price) * product.quantity
+                    (list[click_position].total_price - list[click_position].price_bought - list[click_position].tax_price).toFloat() * product.quantity.toFloat()
             }
 
 
