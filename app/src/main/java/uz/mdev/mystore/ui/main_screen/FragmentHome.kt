@@ -174,9 +174,9 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                         title.text = intTo4digits(product.id)
                         editAttributes.show()
                         name.setText(product.name.toString())
-                        giftPercent.text = setPercentForm(product.gift_percent)
-                        minPercent.text = setPercentForm(product.min_percent)
-                        interestPercent.text = setPercentForm(product.interest_percent)
+                        giftPercent.setText(product.gift_percent.toString())
+                        minPercent.setText(product.min_percent.toString())
+                        interestPercent.setText(product.interest_percent.toString())
                         tvOldBoughtPrice.text =
                             setFloatToCurrencyWithSymbols(product.old_bought_price)
                         tvBoughtPrice.text = setFloatToCurrencyWithSymbols(product.price_bought)

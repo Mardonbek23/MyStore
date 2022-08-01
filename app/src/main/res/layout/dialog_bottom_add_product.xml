@@ -128,6 +128,7 @@
                 //attributes for editing
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/edit_attributes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -168,6 +169,7 @@
                                 android:digits="0123456789"
                                 android:ellipsize="end"
                                 android:gravity="right"
+                                android:imeOptions="actionDone"
                                 android:inputType="numberDecimal"
                                 android:maxLength="3"
                                 android:maxLines="1"
@@ -206,6 +208,7 @@
                                 android:digits="0123456789"
                                 android:ellipsize="end"
                                 android:gravity="right"
+                                android:imeOptions="actionDone"
                                 android:inputType="numberDecimal"
                                 android:maxLength="3"
                                 android:maxLines="1"
@@ -244,6 +247,7 @@
                                 android:digits="0123456789"
                                 android:ellipsize="end"
                                 android:gravity="right"
+                                android:imeOptions="actionDone"
                                 android:inputType="numberDecimal"
                                 android:maxLength="3"
                                 android:maxLines="1"
@@ -287,6 +291,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="130000 uzs"
+                            android:textColor="@color/yellow_for_olds"
                             android:textSize="13dp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -309,9 +314,16 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="130000 uzs"
+                            android:textColor="@color/black"
                             android:textSize="13dp"
                             android:textStyle="bold" />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/gray_1x" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -331,6 +343,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="130000 uzs"
+                            android:textColor="@color/yellow_for_olds"
                             android:textSize="13dp"
                             android:textStyle="bold" />
 
@@ -354,9 +367,16 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="130000 uzs"
+                            android:textColor="@color/black"
                             android:textSize="13dp"
                             android:textStyle="bold" />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/gray_1x" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -376,6 +396,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="130000 uzs"
+                            android:textColor="@color/yellow_for_olds"
                             android:textSize="13dp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -398,9 +419,16 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="130000 uzs"
+                            android:textColor="@color/black"
                             android:textSize="13dp"
                             android:textStyle="bold" />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/gray_1x" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -420,6 +448,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="130000 uzs"
+                            android:textColor="@color/yellow_for_olds"
                             android:textSize="13dp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -442,9 +471,16 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="130000 uzs"
+                            android:textColor="@color/black"
                             android:textSize="13dp"
                             android:textStyle="bold" />
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/gray_1x" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -464,6 +500,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="130000 uzs"
+                            android:textColor="@color/yellow_for_olds"
                             android:textSize="13dp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -478,6 +515,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:gravity="bottom"
                         android:orientation="horizontal">
 
                         <TextView
@@ -488,19 +526,16 @@
                             android:textSize="15dp"
                             android:textStyle="bold" />
 
-                        <EditText
+                        <TextView
                             android:id="@+id/tv_total_price"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             android:layout_weight="1"
                             android:background="@drawable/style_null"
-                            android:digits="0123456789"
                             android:gravity="right"
-                            android:inputType="numberDecimal"
-                            android:text="130000"
                             android:textColor="@color/main_text_color"
-                            android:textSize="15dp"
+                            android:textSize="17dp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -511,13 +546,34 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <Button
-            android:id="@+id/btn_save_edit"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/main_text_color"
-            android:text="Save" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_calculate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:backgroundTint="@color/gray_1x"
+                android:text="Calc" />
+
+            <Button
+                android:id="@+id/btn_save_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/main_text_color"
+                android:text="Save" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
