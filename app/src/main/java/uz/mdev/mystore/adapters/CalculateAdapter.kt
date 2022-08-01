@@ -1,10 +1,13 @@
 package uz.mdev.mystore.adapters
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.mdev.mystore.databinding.ItemRvCalculateBinding
 import uz.mdev.mystore.db.entities.product.Product
+import uz.mdev.mystore.helpers.deFormatCurrencyWithoutSymbols
 import uz.mdev.mystore.helpers.intTo4digits
 import uz.mdev.mystore.helpers.setFloatToCurrencyFormat
 
@@ -59,7 +62,7 @@ class CalculateAdapter(
 
                 //benefit
                 list[click_position].benefit =
-                    (list[click_position].total_price - list[click_position].price_bought - list[click_position].tax_price).toFloat() * product.quantity.toFloat()
+                    (list[click_position].total_price - list[click_position].price_bought - list[click_position].tax_price).toFloat()
             }
 
 
@@ -86,12 +89,12 @@ class CalculateAdapter(
                     }
                 }
                 removeItem.setOnClickListener {
-                    listener.onRemoveClick(click_position,product)
+                    listener.onRemoveClick(click_position, product)
                 }
                 tvBoughtPrice.setOnEditorActionListener { v, actionId, event ->
                     if (tvBoughtPrice.text.isNotEmpty()) {
                         list[click_position].price_bought =
-                            tvBoughtPrice.text.toString().toFloat()
+                            deFormatCurrencyWithoutSymbols(tvBoughtPrice.text.toString())
                     } else {
                         list[click_position].price_bought = 0f
                     }
@@ -112,36 +115,6 @@ class CalculateAdapter(
                     notifyDataSetChanged()
                     return@setOnEditorActionListener false
                 }
-//                tvBoughtPrice.addTextChangedListener(object : TextWatcher {
-//                    override fun beforeTextChanged(
-//                        s: CharSequence?,
-//                        start: Int,
-//                        count: Int,
-//                        after: Int
-//                    ) {
-//
-//                    }
-//
-//                    override fun onTextChanged(
-//                        s: CharSequence?,
-//                        start: Int,
-//                        before: Int,
-//                        count: Int
-//                    ) {
-//                    }
-//
-//                    override fun afterTextChanged(s: Editable?) {
-//                        if (tvBoughtPrice.text.isNotEmpty()) {
-//                            list[click_position].price_bought =
-//                                tvBoughtPrice.text.toString().toFloat()
-//                        } else {
-//                            list[click_position].price_bought = 0f
-//                        }
-//                        calculate_prices(product, click_position)
-//                        onBind(list[click_position])
-//
-//                    }
-//                })
 
 
             }

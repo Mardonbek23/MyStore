@@ -109,6 +109,7 @@ class FragmentHead : Fragment() {
     private fun setFab() {
         binding.apply {
             fab.setOnClickListener {
+                toolbar.show()
                 bottomNavigationView.menu.getItem(2).isChecked = true
                 viewPager.setCurrentItem(2, false)
                 toolbar.title = "Calculator"

@@ -17,7 +17,10 @@ import uz.mdev.mystore.databinding.FragmentCalculateBinding
 import uz.mdev.mystore.db.AppDatabase
 import uz.mdev.mystore.db.dao.ProductDao
 import uz.mdev.mystore.db.entities.product.Product
+import uz.mdev.mystore.helpers.hide
 import uz.mdev.mystore.helpers.makeMyToast
+import uz.mdev.mystore.helpers.setFloatToCurrencyFormat
+import uz.mdev.mystore.helpers.show
 import uz.mdev.mystore.local_data.SharedPreferencesManager
 import java.lang.reflect.Type
 
@@ -67,7 +70,7 @@ class FragmentCalculate() : Fragment() {
     private fun setButtons() {
         binding.apply {
             makeCalc.setOnClickListener {
-                adapter.total_tax_price=0f
+                adapter.total_tax_price = 0f
                 if (taxPrice.text.isNotEmpty()) {
                     adapter.total_tax_price = taxPrice.text.toString().toFloat()
                 }
@@ -85,7 +88,9 @@ class FragmentCalculate() : Fragment() {
                 if (!is_correct) {
                     adapter.total_bought_price = total_bought_price
                     adapter.notifyDataSetChanged()
+                    summarizeTotals()
                 }
+
             }
             applyCalc.setOnClickListener {
                 if (adapter.list.size > 0) {
@@ -105,6 +110,7 @@ class FragmentCalculate() : Fragment() {
                         adapter.total_tax_price = 0f
                         adapter.notifyDataSetChanged()
                         shared.setCalculateItems(null)
+                        summarizeTotals()
                     }
                 })
                 dialog.setNegativeButton("No", object : DialogInterface.OnClickListener {
@@ -117,6 +123,38 @@ class FragmentCalculate() : Fragment() {
         }
     }
 
+    fun summarizeTotals() {
+        binding.apply {
+            lnSums.show()
+            if (adapter.list.size != 0) {
+                var sum_tax = 0f
+                var sum_min = 0f
+                var sum_quatity = 0f
+                var sum_price = 0f
+                var sum_benefit = 0f
+                var sum_old = 0f
+                var sum_bought = 0f
+                for (product in adapter.list) {
+                    sum_tax += product.total_tax_price
+                    sum_min += product.min_price * product.quantity
+                    sum_quatity += product.quantity
+                    sum_price += product.total_price * product.quantity
+                    sum_benefit += product.benefit * product.quantity
+                    sum_old += product.old_total_price
+                    sum_bought += product.price_bought * product.quantity
+                }
+                sumTotalTaxPrice.text = setFloatToCurrencyFormat(sum_tax)
+                sumTotalMinPrice.text = setFloatToCurrencyFormat(sum_min)
+                sumQuantity.text = setFloatToCurrencyFormat(sum_quatity)
+                sumTotalPrice.text = setFloatToCurrencyFormat(sum_price)
+                sumBenefit.text = setFloatToCurrencyFormat(sum_benefit)
+                sumOld.text = setFloatToCurrencyFormat(sum_old)
+                sumBoughtPrice.text = setFloatToCurrencyFormat(sum_bought)
+            } else {
+                lnSums.hide()
+            }
+        }
+    }
 
     private fun setAdapter() {
         list = ArrayList()
@@ -135,6 +173,12 @@ class FragmentCalculate() : Fragment() {
                 dialog.setPositiveButton("Yes", object : DialogInterface.OnClickListener {
                     override fun onClick(dialog: DialogInterface?, which: Int) {
                         adapter.list.remove(product)
+                        list = adapter.list
+                        var total_bought_price = 0f
+                        for (product in adapter.list) {
+                            total_bought_price += product.price_bought * product.quantity
+                        }
+                        adapter.total_bought_price = total_bought_price
                         adapter.notifyDataSetChanged()
                         Toast.makeText(requireContext(), "Removed!", Toast.LENGTH_SHORT).show()
                     }
@@ -178,6 +222,7 @@ class FragmentCalculate() : Fragment() {
             adapter.list = list
             adapter.notifyDataSetChanged()
         }
+        summarizeTotals()
 
 
     }

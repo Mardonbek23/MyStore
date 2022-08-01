@@ -1,13 +1,16 @@
 package uz.mdev.mystore.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import uz.mdev.mystore.db.dao.ProductDao
 import uz.mdev.mystore.db.entities.product.Product
+import uz.mdev.mystore.db.entities.product.ProductPriceDetails
+import uz.mdev.mystore.helpers.ListConverter
+
+class ProductDetailConvereter : ListConverter<ProductPriceDetails>()
 
 @Database(entities = [Product::class], version = 1)
+@TypeConverters(ProductDetailConvereter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
 

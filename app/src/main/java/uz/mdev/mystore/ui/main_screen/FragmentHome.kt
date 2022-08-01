@@ -69,6 +69,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
         shared = SharedPreferencesManager(requireContext())
         gson = Gson()
 
+
         setAdapters()
         setButtons()
         return binding.root

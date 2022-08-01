@@ -26,11 +26,18 @@ public fun setFloatToCurrencyFormat(float: Float): String {
     return result
 }
 
+fun deFormatCurrencyWithoutSymbols(string: String): Float {
+    var format = DecimalFormat("#,###,###")
+    format.minimumFractionDigits = 0
+    val result = format.parse(string)
+    return result.toFloat()
+}
+
 fun setFloatToCurrencyWithSymbols(float: Float): String {
     val format = NumberFormat.getCurrencyInstance()
     format.maximumFractionDigits = 0
     format.currency = Currency.getInstance("uzs")
-    return  format.format(float)
+    return format.format(float)
 }
 
 public fun setIntToStr(int: Int): String {
