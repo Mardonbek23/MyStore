@@ -60,11 +60,11 @@
 
                     <EditText
                         android:id="@+id/name"
-                        android:maxLines="2"
-                        android:imeOptions="actionDone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="0dp"
+                        android:imeOptions="actionDone"
+                        android:maxLines="2"
                         android:textColor="@color/main_text_color" />
                 </LinearLayout>
 
@@ -132,8 +132,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -156,15 +155,31 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:text="Min Percent "
                                 android:textSize="13dp" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/min_percent"
-                                android:layout_width="match_parent"
+                                android:layout_width="120dp"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:background="@drawable/style_null"
+                                android:digits="0123456789"
+                                android:ellipsize="end"
                                 android:gravity="right"
-                                android:text="20%"
+                                android:inputType="numberDecimal"
+                                android:maxLength="3"
+                                android:maxLines="1"
+                                android:text="20"
+                                android:textSize="13dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="right|center_vertical"
+                                android:text="%"
                                 android:textSize="13dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -178,15 +193,31 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:text="Gift Percent "
                                 android:textSize="13dp" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/gift_percent"
-                                android:layout_width="match_parent"
+                                android:layout_width="120dp"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:background="@drawable/style_null"
+                                android:digits="0123456789"
+                                android:ellipsize="end"
                                 android:gravity="right"
-                                android:text="10%"
+                                android:inputType="numberDecimal"
+                                android:maxLength="3"
+                                android:maxLines="1"
+                                android:text="20"
+                                android:textSize="13dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="right|center_vertical"
+                                android:text="%"
                                 android:textSize="13dp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -200,15 +231,31 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:text="Interest Percent "
                                 android:textSize="13dp" />
 
-                            <TextView
+                            <EditText
                                 android:id="@+id/interest_percent"
-                                android:layout_width="match_parent"
+                                android:layout_width="120dp"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:background="@drawable/style_null"
+                                android:digits="0123456789"
+                                android:ellipsize="end"
                                 android:gravity="right"
-                                android:text="10%"
+                                android:inputType="numberDecimal"
+                                android:maxLength="3"
+                                android:maxLines="1"
+                                android:text="20"
+                                android:textSize="13dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="right|center_vertical"
+                                android:text="%"
                                 android:textSize="13dp"
                                 android:textStyle="bold" />
                         </LinearLayout>

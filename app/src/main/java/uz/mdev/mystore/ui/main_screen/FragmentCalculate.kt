@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import uz.mdev.mystore.adapters.CalculateAdapter
@@ -64,7 +65,14 @@ class FragmentCalculate() : Fragment() {
         productDao = AppDatabase.getInstance(requireContext()).productDao()
 
         setButtons()
+        setTabs()
         return binding.root
+    }
+
+    private fun setTabs() {
+        binding.tabs.addTab(binding.tabs.newTab().setText("Bought "))
+        binding.tabs.addTab(binding.tabs.newTab().setText("Sold "))
+        binding.tabs.addTab(binding.tabs.newTab().setText("Simple "))
     }
 
     private fun setButtons() {
