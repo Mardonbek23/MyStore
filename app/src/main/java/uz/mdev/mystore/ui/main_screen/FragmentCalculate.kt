@@ -55,6 +55,7 @@ class FragmentCalculate() : Fragment() {
     lateinit var adapter: CalculateAdapter
     lateinit var list: ArrayList<Product>
     lateinit var productDao: ProductDao
+    var total_bought_price=0f
     var calc_type: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,42 +77,53 @@ class FragmentCalculate() : Fragment() {
         binding.tabs.addTab(binding.tabs.newTab().setText("Simple "))
     }
 
-    private fun setButtons() {
+    fun makeCalc() {
         binding.apply {
-            makeCalc.setOnClickListener {
+            if (adapter.list.size > 0) {
                 adapter.total_tax_price = 0f
                 if (taxPrice.text.isNotEmpty()) {
                     adapter.total_tax_price = taxPrice.text.toString().toFloat()
                 }
+                adapter.total_bought_price = total_bought_price
+                adapter.notifyDataSetChanged()
+                summarizeTotals()
+            }
+
+
+        }
+    }
+
+    private fun setButtons() {
+        binding.apply {
+            makeCalc.setOnClickListener {
                 list = adapter.list
-                var total_bought_price = 0f
+                total_bought_price = 0f
                 var is_correct = false
                 for (product in list) {
                     total_bought_price += product.price_bought * product.quantity
                     if (product.price_bought == 0f) {
                         is_correct = true
-                        requireContext().makeMyToast("${product.name} is not have bought price!")
+                        requireContext().makeMyToast("Check ${product.name} item details!")
                         break
                     }
                 }
                 if (!is_correct) {
-                    adapter.total_bought_price = total_bought_price
-                    adapter.notifyDataSetChanged()
-                    summarizeTotals()
+                    makeCalc()
                 }
 
             }
             applyCalc.setOnClickListener {
                 if (adapter.list.size > 0) {
-                    var isTrue=false
+                    var isTrue = false
                     for (product in adapter.list) {
-                        if (product.quantity<1&&product.price_bought==0f){
+                        if (product.quantity < 1 && product.price_bought == 0f) {
                             requireContext().makeMyToast("Check ${product.name} item details!")
-                            isTrue=true
+                            isTrue = true
                             break
                         }
                     }
-                    if (!isTrue){
+                    if (!isTrue) {
+                        makeCalc()
                         productDao.updateListProducts(adapter.list)
                         shared.setCalculateItems(null)
                         Toast.makeText(requireContext(), "Updated!", Toast.LENGTH_SHORT).show()
@@ -158,7 +170,7 @@ class FragmentCalculate() : Fragment() {
                 var sum_old = 0f
                 var sum_bought = 0f
                 for (product in adapter.list) {
-                    sum_tax += product.tax_price*product.quantity
+                    sum_tax += product.tax_price * product.quantity
                     sum_min += product.min_price * product.quantity
                     sum_quatity += product.quantity
                     sum_price += product.total_price * product.quantity

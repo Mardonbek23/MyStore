@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import uz.mdev.mystore.R
+import uz.mdev.mystore.databinding.DialogBottomAddProductBinding
+import uz.mdev.mystore.databinding.DialogBottomUserProfileBinding
 import uz.mdev.mystore.databinding.FragmentProfileBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -37,7 +40,21 @@ class FragmentProfile : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        setButtons()
         return binding.root
+    }
+
+    private fun setButtons() {
+        binding.apply {
+            profile.setOnClickListener {
+                val bottom_dialog =
+                    BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
+                val binding_dialog = DialogBottomUserProfileBinding.inflate(layoutInflater)
+                bottom_dialog.setContentView(binding_dialog.root)
+                bottom_dialog.show()
+            }
+        }
     }
 
 }
