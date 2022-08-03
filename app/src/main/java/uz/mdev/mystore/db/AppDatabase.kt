@@ -6,8 +6,9 @@ import uz.mdev.mystore.db.dao.ProductDao
 import uz.mdev.mystore.db.entities.product.Product
 import uz.mdev.mystore.db.entities.product.ProductPriceDetails
 import uz.mdev.mystore.helpers.ListConverter
+import uz.mdev.mystore.helpers.ObjectConverter
 
-class ProductDetailConvereter : ListConverter<ProductPriceDetails>()
+class ProductDetailConvereter : ObjectConverter<ProductPriceDetails>()
 
 @Database(entities = [Product::class], version = 1)
 @TypeConverters(ProductDetailConvereter::class)

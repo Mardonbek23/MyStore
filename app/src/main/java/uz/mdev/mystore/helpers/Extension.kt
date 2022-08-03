@@ -34,7 +34,7 @@ fun deFormatCurrencyWithoutSymbols(string: String): Float {
 }
 
 fun setFloatToCurrencyWithSymbols(float: Float): String {
-    val format = NumberFormat.getCurrencyInstance()
+    val format = NumberFormat.getCurrencyInstance(Locale.GERMANY)
     format.maximumFractionDigits = 0
     format.currency = Currency.getInstance("uzs")
     return format.format(float)

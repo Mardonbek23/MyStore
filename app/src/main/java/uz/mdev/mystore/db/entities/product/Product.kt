@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import uz.mdev.mystore.db.ProductDetailConvereter
 import uz.mdev.mystore.helpers.ListConverter
+import uz.mdev.mystore.helpers.ObjectConverter
 
 @Entity(tableName = "product")
 class Product {
@@ -38,15 +39,24 @@ class Product {
     var old_manufacturer: String? = null
     var isSelected: Boolean = false
     var benefit: Float = 0f
+    var quantity_in_group = 1
+    var price_1x = total_price/quantity_in_group
 
     constructor()
-
-    constructor(id: Int, name: String?, category: String, images: String?, description: String?) {
+    constructor(
+        id: Int,
+        name: String?,
+        category: String,
+        images: String?,
+        description: String?,
+        quantity_in_group: Int
+    ) {
         this.id = id
         this.name = name
         this.category = category
         this.images = images
         this.description = description
+        this.quantity_in_group = quantity_in_group
     }
 
 

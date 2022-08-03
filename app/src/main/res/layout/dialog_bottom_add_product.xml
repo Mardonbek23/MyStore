@@ -102,16 +102,71 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="@string/text_detail_info"
-                        android:textSize="13sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@id/image"
-                        app:layout_constraintRight_toRightOf="parent"
-                        tools:ignore="HardcodedText" />
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical|right"
+                        android:orientation="horizontal"
+                        app:layout_constraintLeft_toLeftOf="@id/spinner_category"
+                        app:layout_constraintRight_toRightOf="@id/spinner_category"
+                        app:layout_constraintBottom_toBottomOf="@id/image"
+                        tools:ignore="RtlHardcoded">
+
+                        <LinearLayout
+                            android:id="@+id/line_calc"
+                            android:layout_width="100dp"
+                            android:layout_height="33dp"
+                            android:layout_gravity="left"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:gravity="right|center_vertical"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/minus_btn"
+                                android:layout_width="27dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:padding="0dp"
+                                android:text="-"
+                                android:textAllCaps="false"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+
+                            <EditText
+                                android:id="@+id/quantity"
+                                android:layout_width="46dp"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/style_null"
+                                android:digits="0123456789"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:gravity="center"
+                                android:hint="0"
+                                android:imeOptions="actionDone"
+                                android:inputType="numberDecimal"
+                                android:maxLength="4"
+                                android:maxLines="1"
+                                android:text="1"
+                                android:textSize="15dp" />
+
+                            <Button
+                                android:id="@+id/plus_btn"
+                                android:layout_width="27dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:padding="0dp"
+                                android:text="+"
+                                android:textAllCaps="false"
+                                android:textSize="15dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.AppCompatEditText
@@ -128,12 +183,12 @@
                 //attributes for editing
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/edit_attributes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -534,13 +589,21 @@
                             android:layout_weight="1"
                             android:background="@drawable/style_null"
                             android:gravity="right"
+                            android:text="12000"
                             android:textColor="@color/main_text_color"
                             android:textSize="17dp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
-
+                    <TextView
+                        android:id="@+id/price_1x"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="1x = 10 000 UZS"
+                        android:textColor="@color/black" />
                 </LinearLayout>
+
 
 
             </LinearLayout>
@@ -559,9 +622,9 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:visibility="gone"
                 android:backgroundTint="@color/gray_1x"
-                android:text="Calc" />
+                android:text="Calc"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_save_edit"

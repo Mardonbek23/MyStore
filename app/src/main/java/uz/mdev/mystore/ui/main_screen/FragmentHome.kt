@@ -81,22 +81,46 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
 
             //add product button
             addProduct.setOnClickListener {
+                val product = Product(
+                    0, null, "", null, null, 1
+                )
                 val bottom_dialog =
                     BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
                 val binding_dialog = DialogBottomAddProductBinding.inflate(layoutInflater)
                 binding_dialog.spinnerCategory.adapter = spinnerCategoryAdapter
+                binding_dialog.apply {
+                    plusBtn.setOnClickListener {
+                        if (product.quantity_in_group < 1000) {
+                            product.quantity_in_group = product.quantity_in_group + 1
+                            quantity.setText(product.quantity_in_group.toString())
+                        }
+                    }
+                    minusBtn.setOnClickListener {
+                        if (product.quantity_in_group > 1) {
+                            product.quantity_in_group = product.quantity_in_group - 1
+                            quantity.setText(product.quantity_in_group.toString())
+                        }
+                    }
+                    quantity.setOnEditorActionListener { v, actionId, event ->
+                        if (quantity.text.isNotEmpty() && quantity.text.toString() != "0") {
+                            product.quantity_in_group = quantity.text.toString().toInt()
+                        }
+                        return@setOnEditorActionListener false
+                    }
+                }
                 binding_dialog.btnSaveEdit.setOnClickListener {
+
                     val name = binding_dialog.name.text
                     if (name.isNotEmpty()) {
-                        product_dao.addProduct(
-                            Product(
-                                0,
-                                name.toString(),
-                                binding_dialog.spinnerCategory.selectedItem.toString(),
-                                null,
-                                binding_dialog.edDescription.text.toString()
-                            )
-                        )
+                        product.name = name.toString()
+                        product.category = binding_dialog.spinnerCategory.selectedItem.toString()
+                        product.description = binding_dialog.edDescription.text.toString()
+                        if (binding_dialog.quantity.text.isNotEmpty()&&binding_dialog.quantity.text.toString().toInt()>0){
+                            product.quantity_in_group=binding_dialog.quantity.text.toString().toInt()
+                        }
+                        product_dao.addProduct(product)
+                        requireContext().makeMyToast("Added!")
+                        bottom_dialog.dismiss()
                     } else {
                         requireContext().makeMyToast("Name is empty!")
                     }
@@ -158,6 +182,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
 
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onEditClick(position: Int, product: Product) {
                     val bottom_dialog =
                         BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
@@ -167,25 +192,59 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                         btnSaveEdit.text = "Edit"
                         title.text = intTo4digits(product.id)
                         editAttributes.show()
-
+                        quantity.setText(product.quantity_in_group.toString())
+                        price1x.setText(
+                            "1x = " + setFloatToCurrencyWithSymbols(
+                                product.total_price.div(
+                                    product.quantity_in_group
+                                )
+                            )
+                        )
+                        plusBtn.setOnClickListener {
+                            if (product.quantity_in_group != 1000) {
+                                product.quantity_in_group = product.quantity_in_group + 1
+                                quantity.setText(product.quantity_in_group.toString())
+                            }
+                        }
+                        minusBtn.setOnClickListener {
+                            if (product.quantity_in_group > 1) {
+                                product.quantity_in_group = product.quantity_in_group - 1
+                                quantity.setText(product.quantity_in_group.toString())
+                            }
+                        }
+                        quantity.setOnEditorActionListener { v, actionId, event ->
+                            if (quantity.text.isNotEmpty() && quantity.text.toString() != "0") {
+                                product.quantity_in_group = quantity.text.toString().toInt()
+                            }
+                            return@setOnEditorActionListener false
+                        }
                         //btns
                         btnSaveEdit.setOnClickListener {
+                            if (quantity.text.isNotEmpty() && quantity.text.toString()
+                                    .toInt() > 0
+                            ) {
+                                product.quantity_in_group = quantity.text.toString().toInt()
+                            }
                             if (minPercent.text.isNotEmpty() && minPercent.text.toString()
                                     .toInt() != product.min_percent
                             ) {
                                 product.min_percent = minPercent.text.toString().toInt()
-                                product.min_price=  product.tax_price + product.price_bought * (1 + product.min_percent.toFloat() / 100)
+                                product.min_price =
+                                    product.tax_price + product.price_bought * (1 + product.min_percent.toFloat() / 100)
                             }
-                            if (giftPercent.text.isNotEmpty()&&giftPercent.text.toString().toInt()<interestPercent.text.toString().toInt()
+                            if (giftPercent.text.isNotEmpty() && giftPercent.text.toString()
+                                    .toInt() < interestPercent.text.toString().toInt()
                             ) {
                                 product.gift_percent = giftPercent.text.toString().toInt()
-                                product.gift_price=  product.tax_price + product.price_bought * (1 + (product.interest_percent - product.gift_percent).toFloat() / 100)
+                                product.gift_price =
+                                    product.tax_price + product.price_bought * (1 + (product.interest_percent - product.gift_percent).toFloat() / 100)
                             }
                             if (interestPercent.text.isNotEmpty() && interestPercent.text.toString()
                                     .toInt() != product.interest_percent
                             ) {
                                 product.interest_percent = interestPercent.text.toString().toInt()
-                                product.total_price= product.tax_price+product.price_bought * (1 + product.interest_percent.toFloat() / 100).toFloat()
+                                product.total_price =
+                                    product.tax_price + product.price_bought * (1 + product.interest_percent.toFloat() / 100).toFloat()
                             }
                             product_dao.update(product)
                             requireContext().makeMyToast("Edited!")
@@ -199,19 +258,30 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                                     .toInt() != product.min_percent
                             ) {
                                 product.min_percent = minPercent.text.toString().toInt()
-                                product.min_price=  product.tax_price + product.price_bought * (1 + product.min_percent.toFloat() / 100)
+                                product.min_price =
+                                    product.tax_price + product.price_bought * (1 + product.min_percent.toFloat() / 100)
                             }
-                            if (giftPercent.text.isNotEmpty()&&giftPercent.text.toString().toInt()<interestPercent.text.toString().toInt()
+                            if (giftPercent.text.isNotEmpty() && giftPercent.text.toString()
+                                    .toInt() < interestPercent.text.toString().toInt()
                             ) {
                                 product.gift_percent = giftPercent.text.toString().toInt()
-                                product.gift_price=  product.tax_price + product.price_bought * (1 + (product.interest_percent - product.gift_percent).toFloat() / 100)
+                                product.gift_price =
+                                    product.tax_price + product.price_bought * (1 + (product.interest_percent - product.gift_percent).toFloat() / 100)
                             }
                             if (interestPercent.text.isNotEmpty() && interestPercent.text.toString()
                                     .toInt() != product.interest_percent
                             ) {
                                 product.interest_percent = interestPercent.text.toString().toInt()
-                                product.total_price= product.tax_price+product.price_bought * (1 + product.interest_percent.toFloat() / 100).toFloat()
+                                product.total_price =
+                                    product.tax_price + product.price_bought * (1 + product.interest_percent.toFloat() / 100).toFloat()
                             }
+                            price1x.setText(
+                                "1x = " + setFloatToCurrencyWithSymbols(
+                                    product.total_price.div(
+                                        product.quantity_in_group
+                                    )
+                                )
+                            )
                             name.setText(product.name.toString())
                             giftPercent.setText(product.gift_percent.toString())
                             minPercent.setText(product.min_percent.toString())
