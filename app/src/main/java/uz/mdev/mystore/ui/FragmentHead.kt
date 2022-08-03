@@ -70,6 +70,8 @@ class FragmentHead : Fragment() {
             bottomNavigationView.setOnItemSelectedListener {
                 toolbar.show()
                 landscapeMode.hide()
+                logout.hide()
+                imageAcc.show()
                 requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 when (it.itemId) {
                     R.id.item_home -> {
@@ -87,7 +89,9 @@ class FragmentHead : Fragment() {
                     }
                     R.id.item_profile -> {
                         viewPager.setCurrentItem(4, false)
-                        toolbar.visibility = View.GONE
+                        toolbar.title = ""
+                        logout.show()
+                        imageAcc.hide()
                     }
                 }
                 return@setOnItemSelectedListener true
@@ -110,10 +114,12 @@ class FragmentHead : Fragment() {
         binding.apply {
             fab.setOnClickListener {
                 toolbar.show()
+                logout.hide()
                 bottomNavigationView.menu.getItem(2).isChecked = true
                 viewPager.setCurrentItem(2, false)
                 toolbar.title = "Calculator"
                 landscapeMode.show()
+                imageAcc.show()
             }
         }
     }

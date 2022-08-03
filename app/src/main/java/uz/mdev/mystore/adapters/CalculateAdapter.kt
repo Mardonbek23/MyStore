@@ -16,28 +16,38 @@ class CalculateAdapter(
     var listener:
     CalculateAdapter.OnItemClickListener,
     var total_tax_price: Float,
-    var total_bought_price: Float
+    var total_bought_price: Float,
+    var calc_type:Int
 ) : RecyclerView.Adapter<CalculateAdapter.Vh>() {
 
     inner class Vh(var itemRvBinding: ItemRvCalculateBinding) :
         RecyclerView.ViewHolder(itemRvBinding.root) {
         fun onBind(product: Product) {
             itemRvBinding.apply {
-                id.text = intTo4digits(product.id)
-                name.text = product.name
+
                 tvTotalPrice.setText(setFloatToCurrencyFormat(product.total_price))
-                tvBoughtPrice.setText(setFloatToCurrencyFormat(product.price_bought))
                 tvTaxPrice.text = setFloatToCurrencyFormat(product.tax_price)
                 tvTotalTaxPrice.text =
                     setFloatToCurrencyFormat(product.tax_price * product.quantity)
                 tvMinPrice.text = setFloatToCurrencyFormat(product.min_price)
                 tvOldPrice.text = setFloatToCurrencyFormat(product.old_total_price)
                 tvTotalPrice.setText(setFloatToCurrencyFormat(product.total_price))
-                quantity.setText(product.quantity.toString())
                 tvBenefit.text = setFloatToCurrencyFormat(product.benefit)
+                if (calc_type==0){
+                    tvTotalPrice.setText("*** ***")
+                    tvTaxPrice.text = "*** ***"
+                    tvTotalTaxPrice.text =
+                        "*** ***"
+                    tvMinPrice.text = "*** ***"
+                    tvOldPrice.text = "*** ***"
+                    tvTotalPrice.setText("*** ***")
+                    tvBenefit.text = "*** ***"
+                }
+                id.text = intTo4digits(product.id)
+                name.text = product.name
+                tvBoughtPrice.setText(setFloatToCurrencyFormat(product.price_bought))
+                quantity.setText(product.quantity.toString())
 
-                //total tax price
-                list[adapterPosition].total_tax_price = product.tax_price * product.quantity
             }
         }
 
@@ -73,7 +83,7 @@ class CalculateAdapter(
                 plusBtn.setOnClickListener {
                     if (product.quantity != 1000) {
                         list[click_position].quantity = product.quantity + 1
-                        calculate_prices(product, click_position)
+                        calculate_prices(list[click_position], click_position)
                         onBind(list[click_position])
 
                         listener.onPlusButtonClick(click_position, list[click_position])
@@ -82,7 +92,7 @@ class CalculateAdapter(
                 minusBtn.setOnClickListener {
                     if (product.quantity != 0) {
                         list[click_position].quantity = product.quantity - 1
-                        calculate_prices(product, click_position)
+                        calculate_prices(list[click_position], click_position)
                         onBind(list[click_position])
 
                         listener.onPlusButtonClick(click_position, list[click_position])

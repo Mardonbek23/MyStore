@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyStore</string>
+    <string name="app_name">Market Manager</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_detail_info">You need not fill all details here, you must fill product name, product size and choose category</string>

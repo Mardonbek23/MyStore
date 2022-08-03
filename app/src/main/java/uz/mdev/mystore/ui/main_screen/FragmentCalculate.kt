@@ -55,6 +55,7 @@ class FragmentCalculate() : Fragment() {
     lateinit var adapter: CalculateAdapter
     lateinit var list: ArrayList<Product>
     lateinit var productDao: ProductDao
+    var calc_type: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -70,8 +71,8 @@ class FragmentCalculate() : Fragment() {
     }
 
     private fun setTabs() {
-        binding.tabs.addTab(binding.tabs.newTab().setText("Bought "))
-        binding.tabs.addTab(binding.tabs.newTab().setText("Sold "))
+        binding.tabs.addTab(binding.tabs.newTab().setText("Buying "))
+        binding.tabs.addTab(binding.tabs.newTab().setText("Selling "))
         binding.tabs.addTab(binding.tabs.newTab().setText("Simple "))
     }
 
@@ -108,6 +109,9 @@ class FragmentCalculate() : Fragment() {
                 }
             }
             deleteCalc.setOnClickListener {
+                if (adapter.list.size == 0) {
+                    return@setOnClickListener
+                }
                 val dialog = AlertDialog.Builder(requireContext())
                 dialog.setTitle("Delete")
                 dialog.setMessage("Are you sure to delete calculating?")
@@ -134,6 +138,7 @@ class FragmentCalculate() : Fragment() {
     fun summarizeTotals() {
         binding.apply {
             lnSums.show()
+            applyCalc.show()
             if (adapter.list.size != 0) {
                 var sum_tax = 0f
                 var sum_min = 0f
@@ -143,7 +148,7 @@ class FragmentCalculate() : Fragment() {
                 var sum_old = 0f
                 var sum_bought = 0f
                 for (product in adapter.list) {
-                    sum_tax += product.total_tax_price
+                    sum_tax += product.tax_price*product.quantity
                     sum_min += product.min_price * product.quantity
                     sum_quatity += product.quantity
                     sum_price += product.total_price * product.quantity
@@ -153,11 +158,20 @@ class FragmentCalculate() : Fragment() {
                 }
                 sumTotalTaxPrice.text = setFloatToCurrencyFormat(sum_tax)
                 sumTotalMinPrice.text = setFloatToCurrencyFormat(sum_min)
-                sumQuantity.text = setFloatToCurrencyFormat(sum_quatity)
                 sumTotalPrice.text = setFloatToCurrencyFormat(sum_price)
                 sumBenefit.text = setFloatToCurrencyFormat(sum_benefit)
                 sumOld.text = setFloatToCurrencyFormat(sum_old)
                 sumBoughtPrice.text = setFloatToCurrencyFormat(sum_bought)
+                sumQuantity.text = setFloatToCurrencyFormat(sum_quatity)
+                if (calc_type == 0) {
+                    sumTotalTaxPrice.text = "*** ***"
+                    sumTotalMinPrice.text = "*** ***"
+                    sumTotalPrice.text = "*** ***"
+                    sumBenefit.text = "*** ***"
+                    sumOld.text = "*** ***"
+                    applyCalc.hide()
+                }
+
             } else {
                 lnSums.hide()
             }
@@ -187,6 +201,7 @@ class FragmentCalculate() : Fragment() {
                             total_bought_price += product.price_bought * product.quantity
                         }
                         adapter.total_bought_price = total_bought_price
+                        summarizeTotals()
                         adapter.notifyDataSetChanged()
                         Toast.makeText(requireContext(), "Removed!", Toast.LENGTH_SHORT).show()
                     }
@@ -202,13 +217,13 @@ class FragmentCalculate() : Fragment() {
             }
 
             override fun onPlusButtonClick(position: Int, product: Product) {
-
+                summarizeTotals()
             }
 
             override fun onMinusButtonClick(position: Int, product: Product) {
-
+                summarizeTotals()
             }
-        }, 0f, 0f)
+        }, 0f, 0f, calc_type)
         val dividerItemDecoration = DividerItemDecoration(
             requireContext(),
             DividerItemDecoration.VERTICAL
@@ -223,6 +238,8 @@ class FragmentCalculate() : Fragment() {
     override fun onResume() {
         super.onResume()
         setAdapter()
+        calc_type = binding.tabs.selectedTabPosition
+        adapter.calc_type = calc_type
         if (shared.getCalculateItems() != null) {
             val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
             val ids = gson.fromJson<ArrayList<Int>>(shared.getCalculateItems(), type)
@@ -231,7 +248,20 @@ class FragmentCalculate() : Fragment() {
             adapter.notifyDataSetChanged()
         }
         summarizeTotals()
+        binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                calc_type = binding.tabs.selectedTabPosition
+                adapter.calc_type = calc_type
+                summarizeTotals()
+                adapter.notifyDataSetChanged()
+            }
 
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        })
 
     }
 

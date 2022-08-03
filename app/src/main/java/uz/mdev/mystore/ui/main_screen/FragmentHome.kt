@@ -163,35 +163,92 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                         BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
                     val binding_dialog = DialogBottomAddProductBinding.inflate(layoutInflater)
                     binding_dialog.apply {
+                        btnCalculate.show()
+                        btnSaveEdit.text = "Edit"
+                        title.text = intTo4digits(product.id)
+                        editAttributes.show()
 
+                        //btns
                         btnSaveEdit.setOnClickListener {
-
+                            if (minPercent.text.isNotEmpty() && minPercent.text.toString()
+                                    .toInt() != product.min_percent
+                            ) {
+                                product.min_percent = minPercent.text.toString().toInt()
+                                product.min_price=  product.tax_price + product.price_bought * (1 + product.min_percent.toFloat() / 100)
+                            }
+                            if (giftPercent.text.isNotEmpty()&&giftPercent.text.toString().toInt()<interestPercent.text.toString().toInt()
+                            ) {
+                                product.gift_percent = giftPercent.text.toString().toInt()
+                                product.gift_price=  product.tax_price + product.price_bought * (1 + (product.interest_percent - product.gift_percent).toFloat() / 100)
+                            }
+                            if (interestPercent.text.isNotEmpty() && interestPercent.text.toString()
+                                    .toInt() != product.interest_percent
+                            ) {
+                                product.interest_percent = interestPercent.text.toString().toInt()
+                                product.total_price= product.tax_price+product.price_bought * (1 + product.interest_percent.toFloat() / 100).toFloat()
+                            }
+                            product_dao.update(product)
+                            requireContext().makeMyToast("Edited!")
+                            bottom_dialog.dismiss()
                         }
                         btnClose.setOnClickListener {
                             bottom_dialog.dismiss()
                         }
-                        btnSaveEdit.text = "Edit"
-                        title.text = intTo4digits(product.id)
-                        editAttributes.show()
+                        btnCalculate.setOnClickListener {
+                            if (minPercent.text.isNotEmpty() && minPercent.text.toString()
+                                    .toInt() != product.min_percent
+                            ) {
+                                product.min_percent = minPercent.text.toString().toInt()
+                                product.min_price=  product.tax_price + product.price_bought * (1 + product.min_percent.toFloat() / 100)
+                            }
+                            if (giftPercent.text.isNotEmpty()&&giftPercent.text.toString().toInt()<interestPercent.text.toString().toInt()
+                            ) {
+                                product.gift_percent = giftPercent.text.toString().toInt()
+                                product.gift_price=  product.tax_price + product.price_bought * (1 + (product.interest_percent - product.gift_percent).toFloat() / 100)
+                            }
+                            if (interestPercent.text.isNotEmpty() && interestPercent.text.toString()
+                                    .toInt() != product.interest_percent
+                            ) {
+                                product.interest_percent = interestPercent.text.toString().toInt()
+                                product.total_price= product.tax_price+product.price_bought * (1 + product.interest_percent.toFloat() / 100).toFloat()
+                            }
+                            name.setText(product.name.toString())
+                            giftPercent.setText(product.gift_percent.toString())
+                            minPercent.setText(product.min_percent.toString())
+                            interestPercent.setText(product.interest_percent.toString())
+                            tvBoughtPrice.text = setFloatToCurrencyWithSymbols(product.price_bought)
+                            tvGiftPrice.text = setFloatToCurrencyWithSymbols(product.gift_price)
+                            tvMinPrice.text = setFloatToCurrencyWithSymbols(product.min_price)
+                            tvTotalPrice.text = setFloatToCurrencyWithSymbols(product.total_price)
+                        }
+
+
+
                         name.setText(product.name.toString())
                         giftPercent.setText(product.gift_percent.toString())
                         minPercent.setText(product.min_percent.toString())
                         interestPercent.setText(product.interest_percent.toString())
+                        tvBoughtPrice.text = setFloatToCurrencyWithSymbols(product.price_bought)
+                        tvGiftPrice.text = setFloatToCurrencyWithSymbols(product.gift_price)
+                        tvMinPrice.text = setFloatToCurrencyWithSymbols(product.min_price)
+                        tvTotalPrice.text = setFloatToCurrencyWithSymbols(product.total_price)
+
+                        //not changing data
+
+                        tvOldTaxPrice.text =
+                            setFloatToCurrencyWithSymbols(product.old_tax_price)
+                        tvTaxPrice.text = setFloatToCurrencyWithSymbols(product.tax_price)
+                        tvOldPrice.setText(setFloatToCurrencyWithSymbols(product.old_total_price))
+                        tvOldMinPrice.text =
+                            setFloatToCurrencyWithSymbols(product.old_min_price)
+                        tvOldGiftPrice.text =
+                            setFloatToCurrencyWithSymbols(product.old_gift_price)
                         tvOldBoughtPrice.text =
                             setFloatToCurrencyWithSymbols(product.old_bought_price)
-                        tvBoughtPrice.text = setFloatToCurrencyWithSymbols(product.price_bought)
-                        tvOldTaxPrice.text = setFloatToCurrencyWithSymbols(product.old_tax_price)
-                        tvTaxPrice.text = setFloatToCurrencyWithSymbols(product.tax_price)
-                        tvOldGiftPrice.text = setFloatToCurrencyWithSymbols(product.old_gift_price)
-                        tvGiftPrice.text = setFloatToCurrencyWithSymbols(product.gift_price)
-                        tvOldMinPrice.text = setFloatToCurrencyWithSymbols(product.old_min_price)
-                        tvMinPrice.text = setFloatToCurrencyWithSymbols(product.min_price)
-                        tvOldPrice.setText(setFloatToCurrencyWithSymbols(product.old_total_price))
-                        tvTotalPrice.setText(setFloatToCurrencyWithSymbols(product.total_price))
-
-
                     }
                     if (product.description != null) binding_dialog.edDescription.setText(product.description.toString())
+
+                    //match parent
                     bottom_dialog.setOnShowListener {
                         val bottomSheetDialog = it as BottomSheetDialog
                         val parentLayout =

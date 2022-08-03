@@ -25,7 +25,6 @@ class Product {
     var gift_price: Float = 0f
     var price_bought: Float = 0f
     var tax_price: Float = 0f
-    var total_tax_price: Float = 0f
     var size: String? = null
     var status: Int = 0
     var old_bought_price: Float = 0f
