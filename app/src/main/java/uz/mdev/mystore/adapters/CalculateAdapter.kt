@@ -17,7 +17,7 @@ class CalculateAdapter(
     CalculateAdapter.OnItemClickListener,
     var total_tax_price: Float,
     var total_bought_price: Float,
-    var calc_type:Int
+    var calc_type: Int
 ) : RecyclerView.Adapter<CalculateAdapter.Vh>() {
 
     inner class Vh(var itemRvBinding: ItemRvCalculateBinding) :
@@ -33,7 +33,7 @@ class CalculateAdapter(
                 tvOldPrice.text = setFloatToCurrencyFormat(product.old_total_price)
                 tvTotalPrice.setText(setFloatToCurrencyFormat(product.total_price))
                 tvBenefit.text = setFloatToCurrencyFormat(product.benefit)
-                if (calc_type==0){
+                if (calc_type == 0) {
                     tvTotalPrice.setText("*** ***")
                     tvTaxPrice.text = "*** ***"
                     tvTotalTaxPrice.text =
@@ -83,18 +83,14 @@ class CalculateAdapter(
                 plusBtn.setOnClickListener {
                     if (product.quantity != 1000) {
                         list[click_position].quantity = product.quantity + 1
-                        calculate_prices(list[click_position], click_position)
-                        onBind(list[click_position])
-
+                        notifyDataSetChanged()
                         listener.onPlusButtonClick(click_position, list[click_position])
                     }
                 }
                 minusBtn.setOnClickListener {
                     if (product.quantity != 0) {
                         list[click_position].quantity = product.quantity - 1
-                        calculate_prices(list[click_position], click_position)
-                        onBind(list[click_position])
-
+                        notifyDataSetChanged()
                         listener.onPlusButtonClick(click_position, list[click_position])
                     }
                 }

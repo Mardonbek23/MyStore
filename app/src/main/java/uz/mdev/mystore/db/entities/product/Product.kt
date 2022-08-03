@@ -12,7 +12,7 @@ class Product {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
     var name: String? = null
-    var category: String = "None"
+    var category: Int = 0
     var images: String? = null
     var description: String? = null
     var total_price: Float = 0f
@@ -37,6 +37,7 @@ class Product {
     var old_gift_quantity: Int = 0
     var old_gift_price: Float = 0f
     var old_manufacturer: String? = null
+    var last_editor: String? = null
     var isSelected: Boolean = false
     var benefit: Float = 0f
     var quantity_in_group = 1
@@ -46,7 +47,7 @@ class Product {
     constructor(
         id: Int,
         name: String?,
-        category: String,
+        category: Int,
         images: String?,
         description: String?,
         quantity_in_group: Int

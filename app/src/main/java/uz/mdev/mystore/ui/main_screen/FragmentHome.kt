@@ -82,7 +82,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
             //add product button
             addProduct.setOnClickListener {
                 val product = Product(
-                    0, null, "", null, null, 1
+                    0, null, 0, null, null, 1
                 )
                 val bottom_dialog =
                     BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
@@ -113,10 +113,13 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                     val name = binding_dialog.name.text
                     if (name.isNotEmpty()) {
                         product.name = name.toString()
-                        product.category = binding_dialog.spinnerCategory.selectedItem.toString()
+                        product.category = binding_dialog.spinnerCategory.selectedItemPosition
                         product.description = binding_dialog.edDescription.text.toString()
-                        if (binding_dialog.quantity.text.isNotEmpty()&&binding_dialog.quantity.text.toString().toInt()>0){
-                            product.quantity_in_group=binding_dialog.quantity.text.toString().toInt()
+                        if (binding_dialog.quantity.text.isNotEmpty() && binding_dialog.quantity.text.toString()
+                                .toInt() > 0
+                        ) {
+                            product.quantity_in_group =
+                                binding_dialog.quantity.text.toString().toInt()
                         }
                         product_dao.addProduct(product)
                         requireContext().makeMyToast("Added!")
@@ -175,6 +178,18 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setAdapters() {
+        //set spinner adapter
+        val spinner_items = ArrayList<String>()
+        spinner_items.add("None")
+        spinner_items.add("Products")
+        spinner_items.add("Freshs")
+        spinnerCategoryAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            spinner_items
+        )
+        spinnerCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
         list = ArrayList()
         tableAdapter =
             TableAdapter(list as ArrayList<Product>, object : TableAdapter.OnItemClickListener {
@@ -188,6 +203,8 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                         BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
                     val binding_dialog = DialogBottomAddProductBinding.inflate(layoutInflater)
                     binding_dialog.apply {
+                        spinnerCategory.adapter = spinnerCategoryAdapter
+                        spinnerCategory.setSelection(product.category)
                         btnCalculate.show()
                         btnSaveEdit.text = "Edit"
                         title.text = intTo4digits(product.id)
@@ -246,6 +263,8 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                                 product.total_price =
                                     product.tax_price + product.price_bought * (1 + product.interest_percent.toFloat() / 100).toFloat()
                             }
+                            product.description=edDescription.text.toString()
+                            product.category=spinnerCategory.selectedItemPosition
                             product_dao.update(product)
                             requireContext().makeMyToast("Edited!")
                             bottom_dialog.dismiss()
@@ -350,17 +369,6 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
             tableAdapter.notifyDataSetChanged()
         }
 
-        //set spinner adapter
-        val spinner_items = ArrayList<String>()
-        spinner_items.add("None")
-        spinner_items.add("Products")
-        spinner_items.add("Freshs")
-        spinnerCategoryAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_dropdown_item,
-            spinner_items
-        )
-        spinnerCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     }
 
     interface interface_functions {

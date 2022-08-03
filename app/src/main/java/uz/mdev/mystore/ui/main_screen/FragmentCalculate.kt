@@ -103,9 +103,19 @@ class FragmentCalculate() : Fragment() {
             }
             applyCalc.setOnClickListener {
                 if (adapter.list.size > 0) {
-                    productDao.updateListProducts(adapter.list)
-                    shared.setCalculateItems(null)
-                    Toast.makeText(requireContext(), "Updated!", Toast.LENGTH_SHORT).show()
+                    var isTrue=false
+                    for (product in adapter.list) {
+                        if (product.quantity<1&&product.price_bought==0f){
+                            requireContext().makeMyToast("Check ${product.name} item details!")
+                            isTrue=true
+                            break
+                        }
+                    }
+                    if (!isTrue){
+                        productDao.updateListProducts(adapter.list)
+                        shared.setCalculateItems(null)
+                        Toast.makeText(requireContext(), "Updated!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
             deleteCalc.setOnClickListener {
