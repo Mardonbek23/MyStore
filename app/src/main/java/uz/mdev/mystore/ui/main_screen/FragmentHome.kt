@@ -171,10 +171,6 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
         bottomSheet.layoutParams = layoutParams
     }
 
-    override fun onResume() {
-        super.onResume()
-
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setAdapters() {
