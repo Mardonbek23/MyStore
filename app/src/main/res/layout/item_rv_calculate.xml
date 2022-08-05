@@ -148,21 +148,15 @@
         android:textStyle="bold" />
 
 
-    <EditText
+    <TextView
         android:id="@+id/tv_total_price"
         android:layout_width="100dp"
-        android:layout_height="27dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/style_null"
-        android:digits="0123456789"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:gravity="right|center_vertical"
-        android:imeOptions="actionDone"
-        android:inputType="numberDecimal"
         android:maxLines="1"
+        android:background="#EDEDED"
         android:padding="5dp"
-        android:text="150 000"
         android:textColor="@color/main_text_color"
         android:textSize="14dp"
         android:textStyle="bold" />

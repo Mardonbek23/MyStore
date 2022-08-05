@@ -11,8 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NoActionBarCustom">
         <activity
-            android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
             android:name=".MainActivity"
+            android:configChanges="uiMode|keyboardHidden|orientation|screenSize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -328,6 +328,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:gravity="right"
+                                    android:background="#EDEDED"
                                     android:padding="5dp"
                                     android:textColor="@color/main_text_color"
                                     android:textSize="17dp"
