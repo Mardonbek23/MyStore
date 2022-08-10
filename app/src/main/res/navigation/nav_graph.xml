@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentLogin"
-        android:name="uz.mdev.mystore.ui.secondary_screens.FragmentLogin"
+        android:name="uz.mdev.mystore.ui.register_screens.FragmentLogin"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -25,7 +25,16 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentRegister"
-        android:name="uz.mdev.mystore.ui.secondary_screens.FragmentRegister"
+        android:name="uz.mdev.mystore.ui.register_screens.FragmentRegister"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_fragmentRegister_to_fragmentSms"
+            app:destination="@id/fragmentSms" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSms"
+        android:name="uz.mdev.mystore.ui.register_screens.FragmentSms"
+        android:label="fragment_sms"
+        tools:layout="@layout/fragment_sms" />
 </navigation>

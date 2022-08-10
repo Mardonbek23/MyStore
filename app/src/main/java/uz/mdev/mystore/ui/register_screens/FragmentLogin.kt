@@ -1,4 +1,4 @@
-package uz.mdev.mystore.ui.secondary_screens
+package uz.mdev.mystore.ui.register_screens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
