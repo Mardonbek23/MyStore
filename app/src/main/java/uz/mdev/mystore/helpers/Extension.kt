@@ -1,8 +1,12 @@
 package uz.mdev.mystore.helpers
 
+import android.app.AlertDialog
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import uz.mdev.mystore.R
+import uz.mdev.mystore.databinding.DialogProgressBinding
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -60,4 +64,15 @@ fun Context.makeMyToast(string: String) {
 
 fun intTo4digits(int: Int): String {
     return String.format("%04d", int)
+}
+
+fun Context.progress_dialog(string: String?): AlertDialog {
+    val dialog = AlertDialog.Builder(this)
+    dialog.setCancelable(false)
+    val custom = DialogProgressBinding.inflate(LayoutInflater.from(this))
+    dialog.setView(custom.root)
+    if (string != null) {
+        custom.text.text = string
+    }
+    return dialog.show()
 }

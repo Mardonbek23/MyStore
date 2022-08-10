@@ -19,11 +19,14 @@
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/activity_main.xml" value="0.13269927536231885" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/dialog_bottom_add_product.xml" value="0.325" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/dialog_bottom_user_profile.xml" value="0.365625" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/dialog_progress.xml" value="0.365625" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_business.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_calculate.xml" value="0.33" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_head.xml" value="0.13269927536231885" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_home.xml" value="0.3345238095238095" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_login.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_register.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/item_rv_calculate.xml" value="0.5" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/item_rv_table.xml" value="0.36666666666666664" />
       </map>

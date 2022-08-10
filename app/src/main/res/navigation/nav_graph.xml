@@ -9,5 +9,23 @@
         android:id="@+id/fragmentHead"
         android:name="uz.mdev.mystore.ui.FragmentHead"
         android:label="fragment_head"
-        tools:layout="@layout/fragment_head" />
+        tools:layout="@layout/fragment_head" >
+        <action
+            android:id="@+id/action_fragmentHead_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="uz.mdev.mystore.ui.secondary_screens.FragmentLogin"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_fragmentLogin_to_fragmentRegister"
+            app:destination="@id/fragmentRegister" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentRegister"
+        android:name="uz.mdev.mystore.ui.secondary_screens.FragmentRegister"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
 </navigation>

@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import uz.mdev.mystore.R
 import uz.mdev.mystore.databinding.DialogBottomAddProductBinding
 import uz.mdev.mystore.databinding.DialogBottomUserProfileBinding
 import uz.mdev.mystore.databinding.FragmentProfileBinding
+import uz.mdev.mystore.local_data.SharedPreferencesManager
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,12 +37,13 @@ class FragmentProfile : Fragment() {
     }
 
     lateinit var binding: FragmentProfileBinding
+    lateinit var shared: SharedPreferencesManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-
+        shared = SharedPreferencesManager(requireContext())
         setButtons()
         return binding.root
     }
@@ -48,11 +51,15 @@ class FragmentProfile : Fragment() {
     private fun setButtons() {
         binding.apply {
             profile.setOnClickListener {
-                val bottom_dialog =
-                    BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
-                val binding_dialog = DialogBottomUserProfileBinding.inflate(layoutInflater)
-                bottom_dialog.setContentView(binding_dialog.root)
-                bottom_dialog.show()
+                if (shared.getAccount() != null) {
+                    val bottom_dialog =
+                        BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
+                    val binding_dialog = DialogBottomUserProfileBinding.inflate(layoutInflater)
+                    bottom_dialog.setContentView(binding_dialog.root)
+                    bottom_dialog.show()
+                } else {
+                    Navigation.findNavController(requireView()).navigate(R.id.fragmentLogin)
+                }
             }
         }
     }
