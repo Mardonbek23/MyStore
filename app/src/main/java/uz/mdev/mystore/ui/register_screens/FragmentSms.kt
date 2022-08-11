@@ -143,6 +143,7 @@ class FragmentSms : Fragment() {
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
             signInWithPhoneAuthCredential(credential)
+            binding.otpCode.setText(credential.smsCode)
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
