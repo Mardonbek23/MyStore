@@ -110,7 +110,7 @@ class FragmentRegister : Fragment() {
                         requireContext().makeMyToast("Number must be 12 chars")
                     }
                 } else {
-                    requireContext().makeMyToast("Username must be min 4 chars")
+                    requireContext().makeMyToast("Company name must be min 4 chars")
                 }
 
 

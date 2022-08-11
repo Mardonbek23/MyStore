@@ -155,7 +155,7 @@
                 android:drawableLeft="@drawable/ic_profile"
                 android:drawableTint="@color/teal_200"
                 android:elevation="0dp"
-                android:text="User profile"
+                android:text="Profile"
                 android:textAllCaps="false"
                 android:textColor="@color/gray_1x" />
             <Button

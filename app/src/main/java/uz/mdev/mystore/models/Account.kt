@@ -8,6 +8,7 @@ class Account {
     var image: String? = null
     var role: String = "Manager"
     var created_date: Long = 1
+    var isActive: Boolean = false
 
     constructor()
     constructor(

@@ -109,7 +109,6 @@ class FragmentHead : Fragment() {
             }
         }
     }
-
     private fun setFab() {
         binding.apply {
             fab.setOnClickListener {
@@ -123,4 +122,46 @@ class FragmentHead : Fragment() {
             }
         }
     }
+    override fun onResume() {
+        super.onResume()
+        binding.apply {
+            toolbar.show()
+            landscapeMode.hide()
+            logout.hide()
+            imageAcc.show()
+            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            when(binding.bottomNavigationView.selectedItemId){
+                R.id.item_home -> {
+                    landscapeMode.show()
+                    viewPager.setCurrentItem(0, false)
+                    toolbar.title = "Home"
+                }
+                R.id.item_business -> {
+                    viewPager.setCurrentItem(1, false)
+                    toolbar.title = "Business"
+                }
+                R.id.item_statistics -> {
+                    viewPager.setCurrentItem(3, false)
+                    toolbar.title = "Statistics"
+                }
+                R.id.item_profile -> {
+                    viewPager.setCurrentItem(4, false)
+                    toolbar.title = ""
+                    logout.show()
+                    imageAcc.hide()
+                }
+                R.id.item_calculate->{
+                    toolbar.show()
+                    logout.hide()
+                    bottomNavigationView.menu.getItem(2).isChecked = true
+                    viewPager.setCurrentItem(2, false)
+                    toolbar.title = "Calculator"
+                    landscapeMode.show()
+                    imageAcc.show()
+                }
+            }
+        }
+
+    }
+
 }
