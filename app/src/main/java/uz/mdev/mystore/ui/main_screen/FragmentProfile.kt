@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.gson.Gson
 import uz.mdev.mystore.R
-import uz.mdev.mystore.databinding.DialogBottomAddProductBinding
 import uz.mdev.mystore.databinding.DialogBottomUserProfileBinding
 import uz.mdev.mystore.databinding.FragmentProfileBinding
+import uz.mdev.mystore.helpers.getTypeToken
 import uz.mdev.mystore.local_data.SharedPreferencesManager
+import uz.mdev.mystore.models.Account
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,22 +47,48 @@ class FragmentProfile : Fragment() {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         shared = SharedPreferencesManager(requireContext())
         setButtons()
+        setUi()
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+    }
+
+    public fun setUi() {
+        binding.apply {
+            if (shared.getAccount() != null) {
+                val account = Gson().fromJson<Account>(shared.getAccount(), Account::class.java)
+                companyName.setText(account.name.toString())
+                plan.setText(account.plan.toString())
+            } else {
+                companyName.setText("Not registered")
+                plan.setText("---")
+            }
+
+        }
     }
 
     private fun setButtons() {
         binding.apply {
             profile.setOnClickListener {
                 if (shared.getAccount() != null) {
+                    val account =
+                        Gson().fromJson<Account>(shared.getAccount(), Account::class.java)
                     val bottom_dialog =
                         BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
                     val binding_dialog = DialogBottomUserProfileBinding.inflate(layoutInflater)
+                    binding_dialog.number.setText("+${account.number}")
+                    binding_dialog.username.setText(account.name.toString())
                     bottom_dialog.setContentView(binding_dialog.root)
                     bottom_dialog.show()
                 } else {
                     Navigation.findNavController(requireView()).navigate(R.id.fragmentLogin)
                 }
             }
+
+
         }
     }
 

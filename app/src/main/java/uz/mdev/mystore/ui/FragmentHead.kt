@@ -1,5 +1,7 @@
 package uz.mdev.mystore.ui
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +15,7 @@ import uz.mdev.mystore.helpers.hide
 import uz.mdev.mystore.helpers.show
 import uz.mdev.mystore.local_data.SharedPreferencesManager
 import uz.mdev.mystore.ui.main_screen.FragmentHome
+import uz.mdev.mystore.ui.main_screen.FragmentProfile
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,7 +43,7 @@ class FragmentHead : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHeadBinding.inflate(inflater, container, false)
-        shared= SharedPreferencesManager(requireContext())
+        shared = SharedPreferencesManager(requireContext())
         setComponents()
         setFab()
         return binding.root
@@ -107,8 +110,32 @@ class FragmentHead : Fragment() {
                         ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                 }
             }
+
+            //logout
+            logout.setOnClickListener {
+                if (shared.getAccount() != null) {
+                    var dialog = AlertDialog.Builder(requireContext())
+                    dialog.setTitle("Log out")
+                    dialog.setMessage("Are you sure to logout?")
+                    dialog.setPositiveButton("Yes", object : DialogInterface.OnClickListener {
+                        override fun onClick(dialog: DialogInterface?, which: Int) {
+                            shared.setAccount(null)
+                            setComponents()
+                            onResume()
+                        }
+                    })
+                    dialog.setNegativeButton("No", object : DialogInterface.OnClickListener {
+                        override fun onClick(dialog: DialogInterface?, which: Int) {
+
+                        }
+                    })
+                    dialog.show()
+                }
+
+            }
         }
     }
+
     private fun setFab() {
         binding.apply {
             fab.setOnClickListener {
@@ -122,6 +149,7 @@ class FragmentHead : Fragment() {
             }
         }
     }
+
     override fun onResume() {
         super.onResume()
         binding.apply {
@@ -130,7 +158,7 @@ class FragmentHead : Fragment() {
             logout.hide()
             imageAcc.show()
             requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-            when(binding.bottomNavigationView.selectedItemId){
+            when (binding.bottomNavigationView.selectedItemId) {
                 R.id.item_home -> {
                     landscapeMode.show()
                     viewPager.setCurrentItem(0, false)
@@ -150,7 +178,7 @@ class FragmentHead : Fragment() {
                     logout.show()
                     imageAcc.hide()
                 }
-                R.id.item_calculate->{
+                R.id.item_calculate -> {
                     toolbar.show()
                     logout.hide()
                     bottomNavigationView.menu.getItem(2).isChecked = true

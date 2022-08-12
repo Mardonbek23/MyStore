@@ -9,6 +9,7 @@ class Account {
     var role: String = "Manager"
     var created_date: Long = 1
     var isActive: Boolean = false
+    var plan:String="free"
 
     constructor()
     constructor(

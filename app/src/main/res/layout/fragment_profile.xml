@@ -23,14 +23,16 @@
             android:src="@drawable/ic_storefront" />
 
         <TextView
+            android:id="@+id/company_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vip Brand"
+            android:text="Not registered"
             android:textColor="@color/white"
             android:textSize="17dp"
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/plan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Plan: Free"

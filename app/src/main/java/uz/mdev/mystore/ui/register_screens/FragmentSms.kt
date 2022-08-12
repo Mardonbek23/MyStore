@@ -18,11 +18,14 @@ import com.google.firebase.auth.*
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.gson.Gson
 import uz.mdev.mystore.R
 import uz.mdev.mystore.databinding.FragmentSmsBinding
+import uz.mdev.mystore.helpers.getTypeToken
 import uz.mdev.mystore.helpers.hide
 import uz.mdev.mystore.helpers.makeMyToast
 import uz.mdev.mystore.helpers.show
+import uz.mdev.mystore.local_data.SharedPreferencesManager
 import uz.mdev.mystore.models.Account
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
@@ -67,6 +70,7 @@ class FragmentSms : Fragment() {
     lateinit var firebaseDatabase: FirebaseDatabase
     lateinit var reference: DatabaseReference
 
+    lateinit var shared: SharedPreferencesManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -75,11 +79,15 @@ class FragmentSms : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseDatabase = FirebaseDatabase.getInstance()
         reference = firebaseDatabase.getReference("users").child("managers")
+        shared = SharedPreferencesManager(requireContext())
 
+        //phone auth
         setVerificationCode("+$number")
         setTime()
         checkOtp()
         setResend()
+
+
         setButtons()
         return binding.root
     }
@@ -142,8 +150,10 @@ class FragmentSms : Fragment() {
     val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-            signInWithPhoneAuthCredential(credential)
             binding.otpCode.setText(credential.smsCode)
+            signInWithPhoneAuthCredential(credential)
+
+
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
@@ -202,11 +212,24 @@ class FragmentSms : Fragment() {
                     ), object : DatabaseReference.CompletionListener {
                         override fun onComplete(error: DatabaseError?, ref: DatabaseReference) {
                             if (error == null) {
+                                val toJson = Gson().toJson(
+                                    Account(
+                                        name,
+                                        null,
+                                        number,
+                                        password,
+                                        null,
+                                        "Manager",
+                                        System.currentTimeMillis()
+                                    )
+                                )
+                                shared.setAccount(toJson)
                                 Navigation.findNavController(requireView())
                                     .popBackStack(R.id.fragmentLogin, false)
                                 Navigation.findNavController(requireView())
                                     .popBackStack(R.id.fragmentRegister, false)
                                 Navigation.findNavController(requireView()).popBackStack()
+
                             }
                         }
                     }

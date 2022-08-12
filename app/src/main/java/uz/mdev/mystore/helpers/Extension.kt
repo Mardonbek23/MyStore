@@ -5,8 +5,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import com.google.gson.reflect.TypeToken
 import uz.mdev.mystore.R
 import uz.mdev.mystore.databinding.DialogProgressBinding
+import java.lang.reflect.Type
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -75,4 +77,10 @@ fun Context.progress_dialog(string: String?): AlertDialog {
         custom.text.text = string
     }
     return dialog.show()
+    val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
+}
+
+fun <T> getTypeToken(): Type {
+    val type: Type = object : TypeToken<T>() {}.type
+    return type
 }
