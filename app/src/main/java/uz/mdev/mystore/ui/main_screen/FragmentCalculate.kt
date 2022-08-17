@@ -263,8 +263,8 @@ class FragmentCalculate() : Fragment() {
         calc_type = binding.tabs.selectedTabPosition
         adapter.calc_type = calc_type
         if (shared.getCalculateItems() != null) {
-            val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
-            val ids = gson.fromJson<ArrayList<Int>>(shared.getCalculateItems(), type)
+            val type: Type = object : TypeToken<ArrayList<Long>>() {}.type
+            val ids = gson.fromJson<ArrayList<Long>>(shared.getCalculateItems(), type)
             list = productDao.getProductsByIds(ids) as ArrayList<Product>
             adapter.list = list
             adapter.notifyDataSetChanged()

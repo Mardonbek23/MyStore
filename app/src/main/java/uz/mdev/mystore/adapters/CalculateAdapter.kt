@@ -43,7 +43,7 @@ class CalculateAdapter(
                     tvTotalPrice.setText("*** ***")
                     tvBenefit.text = "*** ***"
                 }
-                id.text = intTo4digits(product.id)
+                id.text = intTo4digits(adapterPosition)
                 name.text = product.name
                 tvBoughtPrice.setText(setFloatToCurrencyFormat(product.price_bought))
                 quantity.setText(product.quantity.toString())

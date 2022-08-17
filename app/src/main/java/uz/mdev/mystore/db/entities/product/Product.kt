@@ -9,8 +9,8 @@ import uz.mdev.mystore.helpers.ObjectConverter
 
 @Entity(tableName = "product")
 class Product {
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    @PrimaryKey(autoGenerate = false)
+    var id: Long = 0
     var name: String? = null
     var category: Int = 0
     var images: String? = null
@@ -41,11 +41,11 @@ class Product {
     var isSelected: Boolean = false
     var benefit: Float = 0f
     var quantity_in_group = 1
-    var price_1x = total_price/quantity_in_group
+    var price_1x = total_price / quantity_in_group
 
     constructor()
     constructor(
-        id: Int,
+        id: Long,
         name: String?,
         category: Int,
         images: String?,

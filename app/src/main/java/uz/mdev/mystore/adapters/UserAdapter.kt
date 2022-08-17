@@ -33,6 +33,9 @@ class UserAdapter(
             itemView.setOnClickListener {
                 listener.onItemClick(adapterPosition,user)
             }
+            itemRvBinding.phone.setOnClickListener {
+                listener.onPhoneClick(adapterPosition,user)
+            }
         }
     }
 

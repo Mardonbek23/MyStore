@@ -1,10 +1,13 @@
 package uz.mdev.mystore.ui.messaging
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.google.firebase.database.*
 import uz.mdev.mystore.R
 import uz.mdev.mystore.adapters.UserAdapter
@@ -82,11 +85,13 @@ class FragmentUsers : Fragment() {
         list_users = ArrayList()
         userAdapter = UserAdapter(list_users, object : UserAdapter.OnItemClickListener {
             override fun onItemClick(position: Int, user: User) {
-
+                Navigation.findNavController(requireView()).navigate(R.id.fragmentMessage)
             }
 
             override fun onPhoneClick(position: Int, user: User) {
-
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.setData(Uri.parse("tel:+" + user.number))
+                startActivity(intent)
             }
 
         })

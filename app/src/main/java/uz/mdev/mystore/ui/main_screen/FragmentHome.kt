@@ -96,6 +96,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                 uploadDownload.show()
 
                 upload.setOnClickListener {
+                    val progressDialog = requireContext().progress_dialog("Joylanmoqda...")
                     firestore.collection("database")
                         .document(account.number.toString())
                         .set(
@@ -106,6 +107,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                         )
                         .addOnCompleteListener {
                             requireContext().makeMyToast("Uploaded!")
+                            progressDialog.dismiss()
                         }
                 }
 
@@ -117,8 +119,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                             val data = it.toObject(Data::class.java)
                             if (data != null) {
                                 requireContext().makeMyToast(data.data_list!!.size.toString())
-                            }
-                            else{
+                            } else {
                                 requireContext().makeMyToast("empty")
                             }
                         }
@@ -141,7 +142,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
             //add product button
             addProduct.setOnClickListener {
                 val product = Product(
-                    0, null, 0, null, null, 1
+                    System.currentTimeMillis(), null, 0, null, null, 1
                 )
                 val bottom_dialog =
                     BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
@@ -197,14 +198,14 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
 
             //calculate button
             calculate.setOnClickListener {
-                var ids = ArrayList<Int>()
+                var ids = ArrayList<Long>()
                 for (product in tableAdapter.list) {
                     if (product.isSelected) {
                         ids.add(product.id)
                     }
                 }
                 if (ids.size > 0) {
-                    val toJson = gson.toJson(ids)
+                    val toJson = gson.toJson(ids, getTypeToken<ArrayList<Long>>())
                     shared.setCalculateItems(toJson)
                     interfaceFunctions.openCalculatePage()
                 } else {
@@ -230,7 +231,10 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
         bottomSheet.layoutParams = layoutParams
     }
 
-
+    override fun onStop() {
+        super.onStop()
+        binding.checkbox.isChecked=false
+    }
     @SuppressLint("NotifyDataSetChanged")
     private fun setAdapters() {
         //set spinner adapter
@@ -262,7 +266,7 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                         spinnerCategory.setSelection(product.category)
                         btnCalculate.show()
                         btnSaveEdit.text = "Edit"
-                        title.text = intTo4digits(product.id)
+                        title.text = intTo4digits(position)
                         editAttributes.show()
                         quantity.setText(product.quantity_in_group.toString())
                         price1x.setText(

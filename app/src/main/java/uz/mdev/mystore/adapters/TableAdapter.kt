@@ -20,7 +20,7 @@ class TableAdapter(
         RecyclerView.ViewHolder(itemRvBinding.root) {
         fun onBind(product: Product) {
             itemRvBinding.apply {
-                id.text = intTo4digits(product.id)
+                id.text = intTo4digits(adapterPosition)
                 name.setText(product.name)
                 totalPrice.setText(setFloatToCurrencyFormat(product.total_price))
                 minPrice.setText(setFloatToCurrencyFormat(product.min_price))

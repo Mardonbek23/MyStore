@@ -60,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
+            android:maxLines="3"
             android:hint="Enter message here..."
             android:paddingTop="0dp" />
 

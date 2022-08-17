@@ -31,10 +31,10 @@
     <ImageView
         android:id="@+id/phone"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
+        android:paddingRight="8dp"
         android:src="@drawable/ic_phone"
         app:tint="?colorPrimaryVariant" />
 
