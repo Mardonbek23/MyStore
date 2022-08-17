@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_fragmentHead_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
+        <action
+            android:id="@+id/action_fragmentHead_to_fragmentUsers"
+            app:destination="@id/fragmentUsers" />
     </fragment>
     <fragment
         android:id="@+id/fragmentLogin"
@@ -37,4 +40,18 @@
         android:name="uz.mdev.mystore.ui.register_screens.FragmentSms"
         android:label="fragment_sms"
         tools:layout="@layout/fragment_sms" />
+    <fragment
+        android:id="@+id/fragmentUsers"
+        android:name="uz.mdev.mystore.ui.messaging.FragmentUsers"
+        android:label="fragment_users"
+        tools:layout="@layout/fragment_users" >
+        <action
+            android:id="@+id/action_fragmentUsers_to_fragmentMessage"
+            app:destination="@id/fragmentMessage" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentMessage"
+        android:name="uz.mdev.mystore.ui.messaging.FragmentMessage"
+        android:label="fragment_message"
+        tools:layout="@layout/fragment_message" />
 </navigation>

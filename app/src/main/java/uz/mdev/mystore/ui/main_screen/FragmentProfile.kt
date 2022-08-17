@@ -12,6 +12,7 @@ import uz.mdev.mystore.R
 import uz.mdev.mystore.databinding.DialogBottomUserProfileBinding
 import uz.mdev.mystore.databinding.FragmentProfileBinding
 import uz.mdev.mystore.helpers.getTypeToken
+import uz.mdev.mystore.helpers.makeMyToast
 import uz.mdev.mystore.local_data.SharedPreferencesManager
 import uz.mdev.mystore.models.Account
 
@@ -85,6 +86,14 @@ class FragmentProfile : Fragment() {
                     bottom_dialog.show()
                 } else {
                     Navigation.findNavController(requireView()).navigate(R.id.fragmentLogin)
+                }
+            }
+            messages.setOnClickListener {
+                if (shared.getAccount()!=null){
+                    Navigation.findNavController(requireView()).navigate(R.id.fragmentUsers)
+                }
+                else{
+                    requireContext().makeMyToast("Ro'yxatdan o'ting!")
                 }
             }
 

@@ -22,6 +22,9 @@ interface ProductDao {
     @Query("select * from product")
     fun getAllProducts(): LiveData<List<Product>>
 
+    @Query("select * from product")
+    fun getAllProductsWithoutLiveData(): List<Product>
+
     @Query("select * from product where id in (:ids)")
     fun getProductsByIds(ids: List<Int>): List<Product>
 

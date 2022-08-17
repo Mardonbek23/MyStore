@@ -47,16 +47,48 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="Products"
                     android:textColor="@color/main_text_color"
                     android:textSize="17dp"
                     android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/upload_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp"
+                    android:layout_toLeftOf="@id/add_product"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/download"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="8dp"
+                        android:gravity="center"
+                        android:text="Download"
+                        android:textAllCaps="false"
+                        android:textSize="11dp" />
+
+                    <Button
+                        android:id="@+id/upload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:text="Upload"
+                        android:textAllCaps="false"
+                        android:textSize="11dp" />
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/add_product"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_add_btn"
                     app:tint="@color/main_text_color" />
 

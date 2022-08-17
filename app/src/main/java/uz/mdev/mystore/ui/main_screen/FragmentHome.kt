@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
 import com.google.gson.Gson
 import uz.mdev.mystore.R
 import uz.mdev.mystore.adapters.TableAdapter
@@ -22,6 +24,8 @@ import uz.mdev.mystore.db.dao.ProductDao
 import uz.mdev.mystore.db.entities.product.Product
 import uz.mdev.mystore.helpers.*
 import uz.mdev.mystore.local_data.SharedPreferencesManager
+import uz.mdev.mystore.models.Account
+import uz.mdev.mystore.models.Data
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -60,6 +64,8 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
     //local data
     lateinit var shared: SharedPreferencesManager
     lateinit var gson: Gson
+    lateinit var account: Account
+    lateinit var firestore: FirebaseFirestore
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -68,11 +74,64 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
         product_dao = AppDatabase.getInstance(requireContext()).productDao()
         shared = SharedPreferencesManager(requireContext())
         gson = Gson()
+        firestore = FirebaseFirestore.getInstance()
+        if (shared.getAccount() != null) {
+            account = gson.fromJson(shared.getAccount(), Account::class.java)
+        }
 
 
         setAdapters()
         setButtons()
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setUi()
+    }
+
+    private fun setUi() {
+        binding.apply {
+            if (shared.getAccount() != null) {
+                uploadDownload.show()
+
+                upload.setOnClickListener {
+                    firestore.collection("database")
+                        .document(account.number.toString())
+                        .set(
+                            Data(
+                                product_dao.getAllProductsWithoutLiveData(),
+                                System.currentTimeMillis()
+                            )
+                        )
+                        .addOnCompleteListener {
+                            requireContext().makeMyToast("Uploaded!")
+                        }
+                }
+
+                download.setOnClickListener {
+                    firestore.collection("database")
+                        .document(account.number.toString())
+                        .get()
+                        .addOnSuccessListener {
+                            val data = it.toObject(Data::class.java)
+                            if (data != null) {
+                                requireContext().makeMyToast(data.data_list!!.size.toString())
+                            }
+                            else{
+                                requireContext().makeMyToast("empty")
+                            }
+                        }
+                        .addOnFailureListener {
+                            requireContext().makeMyToast(it.message.toString())
+                        }
+                }
+
+            } else {
+                uploadDownload.hide()
+            }
+        }
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -259,8 +318,8 @@ class FragmentHome(var interfaceFunctions: interface_functions) : Fragment() {
                                 product.total_price =
                                     product.tax_price + product.price_bought * (1 + product.interest_percent.toFloat() / 100).toFloat()
                             }
-                            product.description=edDescription.text.toString()
-                            product.category=spinnerCategory.selectedItemPosition
+                            product.description = edDescription.text.toString()
+                            product.category = spinnerCategory.selectedItemPosition
                             product_dao.update(product)
                             requireContext().makeMyToast("Edited!")
                             bottom_dialog.dismiss()
