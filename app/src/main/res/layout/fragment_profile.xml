@@ -171,6 +171,17 @@
                 android:text="Messages"
                 android:textAllCaps="false"
                 android:textColor="@color/gray_1x" />
+            <Button
+                android:id="@+id/add_shop_boys"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:backgroundTint="@color/white"
+                android:drawableLeft="@drawable/ic_group"
+                android:elevation="0dp"
+                android:text="Add shop boy"
+                android:textAllCaps="false"
+                android:textColor="@color/gray_1x" />
 
             <Button
                 android:id="@+id/percentages"

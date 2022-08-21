@@ -1,5 +1,7 @@
 package uz.mdev.mystore.ui.main_screen
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,14 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import uz.mdev.mystore.R
+import uz.mdev.mystore.databinding.DialogAddShopperBinding
 import uz.mdev.mystore.databinding.DialogBottomUserProfileBinding
 import uz.mdev.mystore.databinding.FragmentProfileBinding
 import uz.mdev.mystore.helpers.getTypeToken
 import uz.mdev.mystore.helpers.makeMyToast
 import uz.mdev.mystore.local_data.SharedPreferencesManager
 import uz.mdev.mystore.models.Account
+import uz.mdev.mystore.models.Shop
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,12 +47,18 @@ class FragmentProfile : Fragment() {
 
     lateinit var binding: FragmentProfileBinding
     lateinit var shared: SharedPreferencesManager
+    lateinit var firebaseDatabase: FirebaseDatabase
+    lateinit var reference: DatabaseReference
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         shared = SharedPreferencesManager(requireContext())
+        firebaseDatabase = FirebaseDatabase.getInstance()
+        reference =
+            firebaseDatabase.getReference("users")
+
         setButtons()
         setUi()
         return binding.root
@@ -89,14 +101,34 @@ class FragmentProfile : Fragment() {
                 }
             }
             messages.setOnClickListener {
-                if (shared.getAccount()!=null){
+                if (shared.getAccount() != null) {
                     Navigation.findNavController(requireView()).navigate(R.id.fragmentUsers)
-                }
-                else{
+                } else {
                     requireContext().makeMyToast("Ro'yxatdan o'ting!")
                 }
             }
+            addShopBoys.setOnClickListener {
+                if (shared.getAccount() != null) {
+                    val account =
+                        Gson().fromJson<Account>(shared.getAccount(), Account::class.java)
 
+                    val builder = AlertDialog.Builder(requireContext())
+                    val inflate = DialogAddShopperBinding.inflate(layoutInflater)
+                    builder.setView(inflate.root)
+                    builder.setPositiveButton("Add", object : DialogInterface.OnClickListener {
+                        override fun onClick(dialog: DialogInterface?, which: Int) {
+                            val shop =
+                                Shop(account.name, account.number, System.currentTimeMillis())
+                            reference.child("shop_boys").child(inflate.number.toString())
+                                .child("shop").setValue(shop)
+                            requireContext().makeMyToast("Done!")
+                        }
+                    })
+                    builder.show()
+                } else {
+                    requireContext().makeMyToast("Ro'yxatdan o'ting!")
+                }
+            }
 
         }
     }

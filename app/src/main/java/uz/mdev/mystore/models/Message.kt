@@ -12,7 +12,7 @@ class Message {
     var image: String? = null
     var file: String? = null
     var money: Int? = null
-    var list: List<Long>? = null
+    var list: List<SharingData>? = null
     var products_price: Float? = null
 
     constructor()
@@ -27,7 +27,7 @@ class Message {
         image: String?,
         file: String?,
         money: Int?,
-        list: List<Long>?,
+        list: List<SharingData>?,
         products_price: Float?
     ) {
         this.from = from

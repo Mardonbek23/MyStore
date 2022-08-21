@@ -85,7 +85,11 @@ class FragmentUsers : Fragment() {
         list_users = ArrayList()
         userAdapter = UserAdapter(list_users, object : UserAdapter.OnItemClickListener {
             override fun onItemClick(position: Int, user: User) {
-                Navigation.findNavController(requireView()).navigate(R.id.fragmentMessage)
+                val bundle = Bundle()
+                bundle.putString("number", user.number)
+                bundle.putString("name", user.name)
+                bundle.putString("image", user.image)
+                Navigation.findNavController(requireView()).navigate(R.id.fragmentMessage, bundle)
             }
 
             override fun onPhoneClick(position: Int, user: User) {

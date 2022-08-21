@@ -4,19 +4,28 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidProjects/MyStore/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/from_style.xml" value="0.2115" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_account_circle.xml" value="0.211" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_add_btn.xml" value="0.2205" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_add_prodoct.xml" value="0.2115" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_baseline_language_24.xml" value="0.2105" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_baseline_menu_book_24.xml" value="0.2105" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_bookmark.xml" value="0.1635" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_error_info.xml" value="0.2115" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_group.xml" value="0.2115" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_message.xml" value="0.2105" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_percentages.xml" value="0.2105" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_profile.xml" value="0.211" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_settings.xml" value="0.211" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/ic_tick.xml" value="0.2115" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/style_bottom_dialog_corner.xml" value="0.1655" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/style_circle_all.xml" value="0.2115" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/style_corner_1_grey.xml" value="0.2205" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/style_null.xml" value="0.1655" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/drawable/to_style.xml" value="0.2115" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/activity_main.xml" value="0.13269927536231885" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/dialog_add_product.xml" value="0.365625" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/dialog_add_shopper.xml" value="0.365625" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/dialog_bottom_add_product.xml" value="0.325" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/dialog_bottom_user_profile.xml" value="0.365625" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/dialog_progress.xml" value="0.365625" />
@@ -25,13 +34,17 @@
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_head.xml" value="0.13269927536231885" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_home.xml" value="0.3345238095238095" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_login.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_message.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_message.xml" value="0.5214384508990318" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_register.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_sms.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/fragment_users.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/item_from.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/item_from_products_rv.xml" value="0.365625" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/item_rv_calculate.xml" value="0.5" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/item_rv_table.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/item_select.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/item_to.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Windows 10/StudioProjects/MyStore/app/src/main/res/layout/item_user.xml" value="0.36666666666666664" />
       </map>
     </option>

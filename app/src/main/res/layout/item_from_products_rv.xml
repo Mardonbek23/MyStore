@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="110dp"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="daftar"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btn_minus"
+        android:layout_width="30dp"
+        android:layout_height="33dp"
+        android:layout_marginLeft="5dp"
+        android:padding="0dp"
+        android:text="-" />
+
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="100"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_plus"
+        android:layout_width="30dp"
+        android:layout_height="33dp"
+        android:layout_marginLeft="5dp"
+        android:padding="0dp"
+        android:text="+" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingLeft="10dp"
+        android:text="15000000"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+</LinearLayout>
