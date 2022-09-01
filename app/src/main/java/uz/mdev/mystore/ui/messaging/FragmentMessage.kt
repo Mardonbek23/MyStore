@@ -1,5 +1,6 @@
 package uz.mdev.mystore.ui.messaging
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +9,6 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.database.*
 import com.google.gson.Gson
@@ -16,12 +16,10 @@ import uz.mdev.mystore.R
 import uz.mdev.mystore.adapters.MessageAdapter
 import uz.mdev.mystore.adapters.SelectProductAdapter
 import uz.mdev.mystore.databinding.DialogAddProductBinding
-import uz.mdev.mystore.databinding.DialogBottomAddProductBinding
 import uz.mdev.mystore.databinding.FragmentMessageBinding
 import uz.mdev.mystore.db.AppDatabase
 import uz.mdev.mystore.db.dao.ProductDao
 import uz.mdev.mystore.helpers.hide
-import uz.mdev.mystore.helpers.makeMyToast
 import uz.mdev.mystore.helpers.show
 import uz.mdev.mystore.local_data.SharedPreferencesManager
 import uz.mdev.mystore.models.Account
@@ -215,6 +213,7 @@ class FragmentMessage : Fragment() {
 
     private fun setList() {
         reference.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 list.clear()
                 for (child in snapshot.children) {
